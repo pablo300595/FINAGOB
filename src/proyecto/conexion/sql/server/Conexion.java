@@ -19,7 +19,7 @@ public class Conexion {
     PreparedStatement psPrepararSentencia;
     Connection conexion;
     
-    int giga;
+
     
     //Metodo para conectarse al servidor de base de datos
     public Conexion() throws SQLException{
