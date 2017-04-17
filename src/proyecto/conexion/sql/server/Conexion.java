@@ -10,7 +10,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /*
-Actualizacion NUEVA XDXDXDXD
+Actualizacion 
+HECHA POR SEGUNDA
+VEZ
  */
 public class Conexion {
     Statement Sentencias;
