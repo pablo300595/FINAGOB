@@ -9,9 +9,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- *
- * @author Pablo
+/*
+Actualizacion NUEVA XDXDXDXD
  */
 public class Conexion {
     Statement Sentencias;
