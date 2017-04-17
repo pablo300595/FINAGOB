@@ -720,22 +720,18 @@ public class VentanaAgenda extends javax.swing.JFrame {
                 textarea_observaciones.setText(consulta.getString("Observaciones"));         
             }
             
-        } catch (SQLException ex) {
-            
-        }
+        } catch (SQLException ex) {}
     }
-    
+    //Evento al presionar un registro de la tabla
     private void table_consultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_consultaMouseClicked
-        
+
         habilitar();
         int filas;
         String Id;
         accion="Modificar";
-        filas= table_consulta.getSelectedRow();
-        
+        filas= table_consulta.getSelectedRow();        
         Id=(String)modelo.getValueAt(filas,0);
         System.out.println("Valor ID= "+Id);
-        //textfield_observaciones.setEnabled(false);
         id_actualizar =Id;
         cargarDatos(Id);
     }//GEN-LAST:event_table_consultaMouseClicked
@@ -751,10 +747,9 @@ public class VentanaAgenda extends javax.swing.JFrame {
     }//GEN-LAST:event_textfield_buscarKeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        VentanaCorrespondencia jFrame= new VentanaCorrespondencia();//"Frame2" es el nombre que tu le pusiste a tu 2do jframe
-
+        VentanaCorrespondencia jFrame= new VentanaCorrespondencia();
         jFrame.setVisible(true);
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -792,6 +787,7 @@ public class VentanaAgenda extends javax.swing.JFrame {
     }//GEN-LAST:event_button_agregarActionPerformed
 
     private void button_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_guardarActionPerformed
+    //Comprobacion de campos al presionar guardar
     if(validacionCorreo(textfield_correo.getText())==false){
         JOptionPane.showMessageDialog(null,"El correo no es valido");
         return;
@@ -894,7 +890,7 @@ public class VentanaAgenda extends javax.swing.JFrame {
     public void cargarTabla(String valor){
         String[] titulos={"Nombre","Apellido","Departamento","Telefono_Oficina",
         "Correo"};
-        String[] registros= new String[6];
+        String[] registros= new String[5];
         modelo = new DefaultTableModel(null,titulos);
         try {
             //Mostrar registros en la tabla
@@ -915,36 +911,8 @@ public class VentanaAgenda extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,ex);
         }
     }
-    
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaAgenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaAgenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaAgenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaAgenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
+    public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new VentanaAgenda().setVisible(true);
