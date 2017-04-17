@@ -659,7 +659,8 @@ public class VentanaCorrespondencia extends javax.swing.JFrame {
             deshabilitar();
             try {
                 Conect = new Conexion();
-                PreparedStatement pst=Conect.Eliminar("Correspondencia", "Dependencia", Nombre);
+                //PreparedStatement pst=Conect.Eliminar("Correspondencia", "Dependencia", Nombre);
+                Conect.Eliminar("Correspondencia", "Dependencia", Nombre);
                 JOptionPane.showMessageDialog(null, mensaje);
                 //cargarTabla("");
                 primeraCarga();

@@ -783,7 +783,8 @@ public class VentanaTramites extends javax.swing.JFrame {
             deshabilitar();
             try {
                 Conect = new Conexion();
-                PreparedStatement pst=Conect.Eliminar("Contacto", "Nombre", Nombre);
+                //PreparedStatement pst=Conect.Eliminar("Contacto", "Nombre", Nombre);
+                Conect.Eliminar("Contacto", "Nombre", Nombre);
                 JOptionPane.showMessageDialog(null, mensaje);
                 //cargarTabla("");
                 primeraCarga();

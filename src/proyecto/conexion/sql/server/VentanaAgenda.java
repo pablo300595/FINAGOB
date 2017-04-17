@@ -202,7 +202,7 @@ public class VentanaAgenda extends javax.swing.JFrame {
     }
     
         //Metodo para deshabilitar componentes de interfaz
-    public void deshabilitar(){
+    private void deshabilitar(){
         accion="Insertar";
         textfield_nombre.setEnabled(false);
         textfield_apellido.setEnabled(false);
@@ -857,7 +857,8 @@ public class VentanaAgenda extends javax.swing.JFrame {
             deshabilitar();
             try {
                 Conect = new Conexion();
-                PreparedStatement pst=Conect.Eliminar("Contacto", "Nombre", Nombre);
+                //PreparedStatement pst=Conect.Eliminar("Contacto", "Nombre", Nombre);
+                Conect.Eliminar("Contacto", "Nombre", Nombre);
                 JOptionPane.showMessageDialog(null, mensaje);
                 //cargarTabla("");
                 primeraCarga();

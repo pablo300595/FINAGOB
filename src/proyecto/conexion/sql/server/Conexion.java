@@ -56,14 +56,14 @@ public class Conexion {
         return Datos;
     }
     //Metodo para eliminar registros
-    public PreparedStatement Eliminar(String tabla, String campo1,String campo2){
+    public void Eliminar(String tabla, String campo1,String campo2){
         try {
             //Sentencias.executeQuery("DELETE FROM "+ tabla +" WHERE "+campo1+ "="+campo2+"");
             Sentencias.executeQuery("DELETE FROM "+ tabla +" WHERE "+campo1+ "='"+campo2+"'");
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return psPrepararSentencia;
+        //return psPrepararSentencia;
     }
     
     public ResultSet primerCarga() throws SQLException{
