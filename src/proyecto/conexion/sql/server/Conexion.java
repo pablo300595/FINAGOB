@@ -1,7 +1,3 @@
-/*
-FIERRO A LA VERGA
-
-*/
 package proyecto.conexion.sql.server;
 
 import java.sql.PreparedStatement;
@@ -22,6 +18,8 @@ public class Conexion {
     ResultSet Datos;
     PreparedStatement psPrepararSentencia;
     Connection conexion;
+    
+    int giga;
     
     //Metodo para conectarse al servidor de base de datos
     public Conexion() throws SQLException{
