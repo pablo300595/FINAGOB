@@ -15,7 +15,6 @@ public class VentanaAgenda extends javax.swing.JFrame {
     DefaultTableModel modelo;
     Conexion Conect;
     String campoconsulta;
-    
     String regex;
     Pattern patron;
 
@@ -176,11 +175,11 @@ public class VentanaAgenda extends javax.swing.JFrame {
     
     
     
-    public void primeraCarga(){
+    private void primeraCarga(){
         String[] titulos={"Nombre","Apellido","Departamento","Telefono_Oficina",
         "Correo"};
 
-        String[] registros= new String[6];
+        String[] registros= new String[5];
         modelo = new DefaultTableModel(null,titulos);
         try {
             //Mostrar registros en la tabla
@@ -201,6 +200,167 @@ public class VentanaAgenda extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,ex);
         }
     }
+    
+        //Metodo para deshabilitar componentes de interfaz
+    public void deshabilitar(){
+        accion="Insertar";
+        textfield_nombre.setEnabled(false);
+        textfield_apellido.setEnabled(false);
+        textfield_departamento.setEnabled(false);
+        textfield_direccion.setEnabled(false);
+        textfield_secretaria.setEnabled(false);
+        textfield_telefono_oficina.setEnabled(false);
+        textfield_telefono_celular.setEnabled(false);
+        textfield_correo.setEnabled(false);
+        textarea_observaciones.setEnabled(false);
+        textfield_domicilio.setEnabled(false);
+        textfield_nombre.setText("");
+        textfield_apellido.setText("");
+        textfield_departamento.setText("");
+        textfield_direccion.setText("");
+        textfield_secretaria.setText("");
+        textfield_telefono_oficina.setText("");
+        textfield_telefono_celular.setText("");
+        textfield_correo.setText("");
+        textarea_observaciones.setText("");
+        textfield_buscar.setText("");
+        textfield_domicilio.setText("");
+        textfield_nombre.requestFocus();
+        button_guardar.setEnabled(false);
+        button_borrar.setEnabled(false);
+        button_cancelar.setEnabled(false);
+ 
+    }
+    //Método para habilitar componentes de interfaz
+    public void habilitar(){
+        accion="Insertar";
+        textfield_nombre.setEnabled(true);
+        textfield_apellido.setEnabled(true);
+        textfield_departamento.setEnabled(true);
+        textfield_direccion.setEnabled(true);
+        textfield_secretaria.setEnabled(true);
+        textfield_telefono_oficina.setEnabled(true);
+        textfield_telefono_celular.setEnabled(true);
+        textfield_correo.setEnabled(true);
+        textarea_observaciones.setEnabled(true);
+        textfield_domicilio.setEnabled(true);
+        textfield_nombre.setText("");
+        textfield_apellido.setText("");
+        textfield_departamento.setText("");
+        textfield_direccion.setText("");
+        textfield_secretaria.setText("");
+        textfield_telefono_oficina.setText("");
+        textfield_telefono_celular.setText("");
+        textfield_correo.setText("");
+        textarea_observaciones.setText("");
+        textfield_buscar.setText("");
+        textfield_domicilio.setText("");
+        textfield_nombre.requestFocus();
+        button_guardar.setEnabled(true);
+        button_borrar.setEnabled(true);
+        button_cancelar.setEnabled(true);
+    }
+    
+    //Metodo para cargar tabla de registros
+    public void cargarTabla(String valor){
+        String[] titulos={"Nombre","Apellido","Departamento","Telefono_Oficina",
+        "Correo"};
+        String[] registros= new String[5];
+        modelo = new DefaultTableModel(null,titulos);
+        try {
+            //Mostrar registros en la tabla
+            Conect = new Conexion();
+            ResultSet consulta= Conect.Consultar1("Contacto",campoconsulta ,valor);
+            while(consulta.next()){
+                registros[0] = consulta.getString("Nombre");
+                registros[1] = consulta.getString("Apellido");
+                registros[2] = consulta.getString("Departamento");
+                registros[3] = consulta.getString("Telefono_oficina");
+                registros[4] = consulta.getString("Correo");
+                modelo.addRow(registros);               
+            }
+            //Mostrar titulos de la tabla
+            table_consulta.setModel(modelo);
+            
+        } catch (SQLException ex) {    
+            JOptionPane.showMessageDialog(null,ex);
+        }
+    }
+    
+        //Metodo que inserta y modifica los datos
+    private void insertarModificar(){
+        String nom,ape,dep,dir,sec,dom,telof,telcel,corr,observ;
+        nom = textfield_nombre.getText();
+        ape = textfield_apellido.getText();
+        dep = textfield_departamento.getText();
+        dir = textfield_direccion.getText();
+        sec = textfield_secretaria.getText();
+        dom = textfield_domicilio.getText();
+        telof = textfield_telefono_oficina.getText();
+        telcel = textfield_telefono_celular.getText();
+        corr = textfield_correo.getText();
+        observ = textarea_observaciones.getText();
+        try {
+            System.out.println("Previo a conexion..."); 
+            Conect = new Conexion(); 
+            if(accion.equals("Insertar")){
+                sql= "INSERT INTO Contacto( Nombre,Apellido,Departamento,Direccion,Secretaria,Domicilio,Telefono_oficina,Telefono_celular,Correo,Observaciones)"+" VALUES(?,?,?,?,?,?,?,?,?,?)";
+                mensaje="Los datos se han insertado";
+                deshabilitar();
+            }
+            
+            if((accion.equals("Modificar"))){
+                System.out.println("Estoy actualizando...");
+                sql= "UPDATE Contacto SET Nombre = ?, Apellido = ?,Departamento = ?,Direccion = ?,Secretaria = ?, Domicilio = ?,Telefono_oficina = ?,Telefono_celular = ?,Correo = ?,Observaciones = ? WHERE Nombre = "+"'"+id_actualizar+"'";
+                mensaje="Los datos se han actualizado";
+                deshabilitar();
+            }
+            PreparedStatement pst=Conect.conexion.prepareStatement(sql);
+            pst.setString(1, nom);
+            pst.setString(2, ape);
+            pst.setString(3, dep);
+            pst.setString(4, dir);
+            pst.setString(5, sec);
+            pst.setString(6, dom);
+            pst.setString(7, telof);
+            pst.setString(8, telcel);
+            pst.setString(9, corr);
+            pst.setString(10, observ);
+           
+            int n=pst.executeUpdate();
+            System.out.println("Valor n= "+n);
+            if(n>0){
+                JOptionPane.showMessageDialog(null, mensaje);
+                primeraCarga();
+            }
+        } catch (SQLException ex) {
+           System.out.println("Entró a catch...");
+           JOptionPane.showMessageDialog(null, ex);
+        }
+        
+    }
+    
+        private void cargarDatos(String Id){
+        try {
+            Conect= new Conexion();
+            ResultSet consulta =Conect.Consultar2("Contacto", "Nombre", Id);
+            //Recorre registros para mostrarlos
+            while(consulta.next()){
+                textfield_nombre.setText(consulta.getString("Nombre"));
+                textfield_apellido.setText(consulta.getString("Apellido"));
+                textfield_departamento.setText(consulta.getString("Departamento"));
+                textfield_direccion.setText(consulta.getString("Direccion"));
+                textfield_secretaria.setText(consulta.getString("Secretaria"));
+                textfield_domicilio.setText(consulta.getString("Domicilio"));
+                textfield_telefono_oficina.setText(consulta.getString("Telefono_oficina"));
+                textfield_telefono_celular.setText(consulta.getString("Telefono_celular"));
+                textfield_correo.setText(consulta.getString("Correo"));
+                textarea_observaciones.setText(consulta.getString("Observaciones"));         
+            }
+            
+        } catch (SQLException ex) {}
+    }
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -649,79 +809,7 @@ public class VentanaAgenda extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    //Metodo que inserta y modifica los datos
-    private void insertarModificar(){
-        String nom,ape,dep,dir,sec,dom,telof,telcel,corr,observ;
-        nom = textfield_nombre.getText();
-        ape = textfield_apellido.getText();
-        dep = textfield_departamento.getText();
-        dir = textfield_direccion.getText();
-        sec = textfield_secretaria.getText();
-        dom = textfield_domicilio.getText();
-        telof = textfield_telefono_oficina.getText();
-        telcel = textfield_telefono_celular.getText();
-        corr = textfield_correo.getText();
-        observ = textarea_observaciones.getText();
-        try {
-            System.out.println("Previo a conexion..."); 
-            Conect = new Conexion(); 
-            if(accion.equals("Insertar")){
-                sql= "INSERT INTO Contacto( Nombre,Apellido,Departamento,Direccion,Secretaria,Domicilio,Telefono_oficina,Telefono_celular,Correo,Observaciones)"+" VALUES(?,?,?,?,?,?,?,?,?,?)";
-                mensaje="Los datos se han insertado";
-                deshabilitar();
-            }
-            
-            if((accion.equals("Modificar"))){
-                System.out.println("Estoy actualizando...");
-                sql= "UPDATE Contacto SET Nombre = ?, Apellido = ?,Departamento = ?,Direccion = ?,Secretaria = ?, Domicilio = ?,Telefono_oficina = ?,Telefono_celular = ?,Correo = ?,Observaciones = ? WHERE Nombre = "+"'"+id_actualizar+"'";
-                mensaje="Los datos se han actualizado";
-                deshabilitar();
-            }
-            PreparedStatement pst=Conect.conexion.prepareStatement(sql);
-            pst.setString(1, nom);
-            pst.setString(2, ape);
-            pst.setString(3, dep);
-            pst.setString(4, dir);
-            pst.setString(5, sec);
-            pst.setString(6, dom);
-            pst.setString(7, telof);
-            pst.setString(8, telcel);
-            pst.setString(9, corr);
-            pst.setString(10, observ);
-           
-            int n=pst.executeUpdate();
-            System.out.println("Valor n= "+n);
-            if(n>0){
-                JOptionPane.showMessageDialog(null, mensaje);
-                primeraCarga();
-            }
-        } catch (SQLException ex) {
-           System.out.println("Entró a catch...");
-           JOptionPane.showMessageDialog(null, ex);
-        }
-        
-    }
-    
-        private void cargarDatos(String Id){
-        try {
-            Conect= new Conexion();
-            ResultSet consulta =Conect.Consultar2("Contacto", "Nombre", Id);
-            //Recorre registros para mostrarlos
-            while(consulta.next()){
-                textfield_nombre.setText(consulta.getString("Nombre"));
-                textfield_apellido.setText(consulta.getString("Apellido"));
-                textfield_departamento.setText(consulta.getString("Departamento"));
-                textfield_direccion.setText(consulta.getString("Direccion"));
-                textfield_secretaria.setText(consulta.getString("Secretaria"));
-                textfield_domicilio.setText(consulta.getString("Domicilio"));
-                textfield_telefono_oficina.setText(consulta.getString("Telefono_oficina"));
-                textfield_telefono_celular.setText(consulta.getString("Telefono_celular"));
-                textfield_correo.setText(consulta.getString("Correo"));
-                textarea_observaciones.setText(consulta.getString("Observaciones"));         
-            }
-            
-        } catch (SQLException ex) {}
-    }
+
     //Evento al presionar un registro de la tabla
     private void table_consultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_consultaMouseClicked
 
@@ -826,91 +914,6 @@ public class VentanaAgenda extends javax.swing.JFrame {
     }    
     insertarModificar();                  
     }//GEN-LAST:event_button_guardarActionPerformed
-    //Metodo para deshabilitar componentes de interfaz
-    public void deshabilitar(){
-        accion="Insertar";
-        textfield_nombre.setEnabled(false);
-        textfield_apellido.setEnabled(false);
-        textfield_departamento.setEnabled(false);
-        textfield_direccion.setEnabled(false);
-        textfield_secretaria.setEnabled(false);
-        textfield_telefono_oficina.setEnabled(false);
-        textfield_telefono_celular.setEnabled(false);
-        textfield_correo.setEnabled(false);
-        textarea_observaciones.setEnabled(false);
-        textfield_domicilio.setEnabled(false);
-        textfield_nombre.setText("");
-        textfield_apellido.setText("");
-        textfield_departamento.setText("");
-        textfield_direccion.setText("");
-        textfield_secretaria.setText("");
-        textfield_telefono_oficina.setText("");
-        textfield_telefono_celular.setText("");
-        textfield_correo.setText("");
-        textarea_observaciones.setText("");
-        textfield_buscar.setText("");
-        textfield_domicilio.setText("");
-        textfield_nombre.requestFocus();
-        button_guardar.setEnabled(false);
-        button_borrar.setEnabled(false);
-        button_cancelar.setEnabled(false);
- 
-    }
-    //Método para habilitar componentes de interfaz
-    public void habilitar(){
-        accion="Insertar";
-        textfield_nombre.setEnabled(true);
-        textfield_apellido.setEnabled(true);
-        textfield_departamento.setEnabled(true);
-        textfield_direccion.setEnabled(true);
-        textfield_secretaria.setEnabled(true);
-        textfield_telefono_oficina.setEnabled(true);
-        textfield_telefono_celular.setEnabled(true);
-        textfield_correo.setEnabled(true);
-        textarea_observaciones.setEnabled(true);
-        textfield_domicilio.setEnabled(true);
-        textfield_nombre.setText("");
-        textfield_apellido.setText("");
-        textfield_departamento.setText("");
-        textfield_direccion.setText("");
-        textfield_secretaria.setText("");
-        textfield_telefono_oficina.setText("");
-        textfield_telefono_celular.setText("");
-        textfield_correo.setText("");
-        textarea_observaciones.setText("");
-        textfield_buscar.setText("");
-        textfield_domicilio.setText("");
-        textfield_nombre.requestFocus();
-        button_guardar.setEnabled(true);
-        button_borrar.setEnabled(true);
-        button_cancelar.setEnabled(true);
-    }
-    
-    //Metodo para cargar tabla de registros
-    public void cargarTabla(String valor){
-        String[] titulos={"Nombre","Apellido","Departamento","Telefono_Oficina",
-        "Correo"};
-        String[] registros= new String[5];
-        modelo = new DefaultTableModel(null,titulos);
-        try {
-            //Mostrar registros en la tabla
-            Conect = new Conexion();
-            ResultSet consulta= Conect.Consultar1("Contacto",campoconsulta ,valor);
-            while(consulta.next()){
-                registros[0] = consulta.getString("Nombre");
-                registros[1] = consulta.getString("Apellido");
-                registros[2] = consulta.getString("Departamento");
-                registros[3] = consulta.getString("Telefono_oficina");
-                registros[4] = consulta.getString("Correo");
-                modelo.addRow(registros);               
-            }
-            //Mostrar titulos de la tabla
-            table_consulta.setModel(modelo);
-            
-        } catch (SQLException ex) {    
-            JOptionPane.showMessageDialog(null,ex);
-        }
-    }
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
