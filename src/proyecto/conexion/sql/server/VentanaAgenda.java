@@ -1,31 +1,17 @@
 package proyecto.conexion.sql.server;
 
 import Clases1.ImagenFondo;
-import java.awt.Image;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
-
-
-import javax.swing.ImageIcon;
-import static javax.swing.JOptionPane.showMessageDialog;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class VentanaAgenda extends javax.swing.JFrame {
-    private String accion, id_actualizar,urlOrigen,sql;
-    private String mensaje,imgDestino,extension,genero,email,observaciones,imgbd;
+    private String accion, id_actualizar,sql;
+    private String mensaje;
     DefaultTableModel modelo;
     Conexion Conect;
     String campoconsulta;
@@ -39,15 +25,15 @@ public class VentanaAgenda extends javax.swing.JFrame {
         primeraCarga();
         accion= "Insertar"; 
         id_actualizar="";
-        urlOrigen="";
         sql="";
-        observaciones="";
-        
         deshabilitar();
         campoconsulta="";
         jDesktopPane1.setBorder(new ImagenFondo());
     }
-    
+    /*
+        Validación de campos usando un método para cada campo. 
+        Se realizan evaluaciones con expresiones regulares.
+    */
     public boolean validacionCorreo(String txt){
         String[] listaTextos=txt.split(",");
         regex = "[A-Za-z]+@[a-z]+\\.[a-z]+";
@@ -834,10 +820,6 @@ public class VentanaAgenda extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null,"El telefono celular no es valido");
         return;
     }
-    if(validacionObservaciones(textarea_observaciones.getText())==false){
-        JOptionPane.showMessageDialog(null,"Faltan observaciones");
-        return;
-    }
     if(validacionDireccion(textfield_direccion.getText())==false){
         JOptionPane.showMessageDialog(null,"Direccion no valida");
         return;
@@ -845,96 +827,12 @@ public class VentanaAgenda extends javax.swing.JFrame {
     if(validacionDomicilio(textfield_domicilio.getText())==false){
         JOptionPane.showMessageDialog(null,"Domicilio no valido");
         return;
-    }
-        
-    if(textfield_nombre.getText().equals("")){
-            JOptionPane.showMessageDialog(null,"Ingrese nombre");
-            textfield_nombre.requestFocus();
-        }else{
-            if(textfield_apellido.getText().equals("")){
-            JOptionPane.showMessageDialog(null,"Ingrese apellido");
-            textfield_apellido.requestFocus();
-            }else{
-                if(textfield_departamento.getText().equals("")){
-                 JOptionPane.showMessageDialog(null,"Ingrese departamento");
-                textfield_departamento.requestFocus();
-                }else{
-                    if(textfield_direccion.getText().equals("")){
-                    JOptionPane.showMessageDialog(null,"Ingrese direccion");
-                    textfield_direccion.requestFocus();
-                    }else{
-                        if(textfield_secretaria.getText().equals("")){
-                        JOptionPane.showMessageDialog(null,"Ingrese secretaria");
-                        textfield_secretaria.requestFocus();
-                        }else{
-                            if(textfield_domicilio.getText().equals("")){
-                            JOptionPane.showMessageDialog(null,"Ingrese domicilio");
-                            textfield_domicilio.requestFocus();
-                            }else{
-                                if(textfield_telefono_oficina.getText().equals("")){
-                                JOptionPane.showMessageDialog(null,"Ingrese telefono de oficina");
-                                textfield_telefono_oficina.requestFocus();
-                                }else{  
-                                    if(textfield_telefono_celular.getText().equals("")){
-                                    JOptionPane.showMessageDialog(null,"Ingrese telefono celular");
-                                    textfield_telefono_celular.requestFocus();
-                                    }else{
-                                        if(textfield_correo.getText().equals("")){
-                                        JOptionPane.showMessageDialog(null,"Ingrese correo");
-                                        textfield_correo.requestFocus();
-                                        }else{
-                                            if(textarea_observaciones.getText().equals("")){
-                                            JOptionPane.showMessageDialog(null,"Ingrese observaciones");
-                                            textarea_observaciones.requestFocus();
-                                            }
-                                            else{
-                                                String observaciones2="";
-                                                observaciones=textarea_observaciones.getText();
-                                                
-                                                /*try {
-                                                    //llamar clase conexion
-                                                    Conect= new Conexion();
-                                                    ResultSet consulta = Conect.Consultar2("Contacto","Observaciones" , observaciones);
-                                                    while(consulta.next()){
-                                                        observaciones2=consulta.getString("Observaciones");
-                                                    }
-                                                   //insertarModificar();
-                                                   // cargarTabla("");
-                                                } catch (SQLException ex) {
-                                                   JOptionPane.showMessageDialog(null,ex);
-                                                }*/
-                                                //nuevo
-                                                /*if(accion.equals("Modificar")){
-                                                
-                                                }*/
-                                                insertarModificar();
-                                                /*if(observaciones.equals(observaciones2)){
-                                                    JOptionPane.showMessageDialog(null,observaciones2+" ya existe");
-                                                    //insertarModificar();
-                                                }else{
-                                                    insertarModificar();
-                                                    //guardarImagenes();
-                                                }*/
-                                            }
-                                        }
-                                    
-                                    }  
-                                }
-                            }
-                        }
-                    
-                    }
-                    
-                }
-            }
-        }
+    }    
+    insertarModificar();                  
     }//GEN-LAST:event_button_guardarActionPerformed
-    //Metodo para deshabilitar controles
+    //Metodo para deshabilitar componentes de interfaz
     public void deshabilitar(){
-        observaciones=" ";
         accion="Insertar";
-        urlOrigen=" ";
-        //label_foto.setIcon(null);
         textfield_nombre.setEnabled(false);
         textfield_apellido.setEnabled(false);
         textfield_departamento.setEnabled(false);
@@ -945,7 +843,6 @@ public class VentanaAgenda extends javax.swing.JFrame {
         textfield_correo.setEnabled(false);
         textarea_observaciones.setEnabled(false);
         textfield_domicilio.setEnabled(false);
-        
         textfield_nombre.setText("");
         textfield_apellido.setText("");
         textfield_departamento.setText("");
@@ -958,20 +855,14 @@ public class VentanaAgenda extends javax.swing.JFrame {
         textfield_buscar.setText("");
         textfield_domicilio.setText("");
         textfield_nombre.requestFocus();
-        
         button_guardar.setEnabled(false);
         button_borrar.setEnabled(false);
         button_cancelar.setEnabled(false);
  
     }
-    
-    //Habilitar controles
+    //Método para habilitar componentes de interfaz
     public void habilitar(){
-        observaciones=" ";
         accion="Insertar";
-        urlOrigen=" ";
-        //label_foto.setIcon(null);
-        
         textfield_nombre.setEnabled(true);
         textfield_apellido.setEnabled(true);
         textfield_departamento.setEnabled(true);
@@ -982,7 +873,6 @@ public class VentanaAgenda extends javax.swing.JFrame {
         textfield_correo.setEnabled(true);
         textarea_observaciones.setEnabled(true);
         textfield_domicilio.setEnabled(true);
-        
         textfield_nombre.setText("");
         textfield_apellido.setText("");
         textfield_departamento.setText("");
@@ -995,21 +885,15 @@ public class VentanaAgenda extends javax.swing.JFrame {
         textfield_buscar.setText("");
         textfield_domicilio.setText("");
         textfield_nombre.requestFocus();
-        
         button_guardar.setEnabled(true);
         button_borrar.setEnabled(true);
         button_cancelar.setEnabled(true);
-        //button_examinar.setEnabled(true);
     }
     
-
     //Metodo para cargar tabla de registros
     public void cargarTabla(String valor){
         String[] titulos={"Nombre","Apellido","Departamento","Telefono_Oficina",
         "Correo"};
-        /*String[] titulos={"Nombre","Apellido","Departamento","Direccion","Secretaria","Domicilio","Telefono_Oficina",
-        "Telefono_Celular","Correo","Observaciones"};*/
-        
         String[] registros= new String[6];
         modelo = new DefaultTableModel(null,titulos);
         try {
@@ -1017,18 +901,11 @@ public class VentanaAgenda extends javax.swing.JFrame {
             Conect = new Conexion();
             ResultSet consulta= Conect.Consultar1("Contacto",campoconsulta ,valor);
             while(consulta.next()){
-                //registros[0] = consulta.getString("Id_Contacto");
                 registros[0] = consulta.getString("Nombre");
                 registros[1] = consulta.getString("Apellido");
                 registros[2] = consulta.getString("Departamento");
-                //registros[4] = consulta.getString("Direccion");
-                //registros[5] = consulta.getString("Secretaria");
-                //registros[6] = consulta.getString("Domicilio");
                 registros[3] = consulta.getString("Telefono_oficina");
-                //registros[3] = consulta.getString("Telefono_celular");
                 registros[4] = consulta.getString("Correo");
-                //registros[5] = consulta.getString("Observaciones");
-                //registros[11] = consulta.getString("Imagen");
                 modelo.addRow(registros);               
             }
             //Mostrar titulos de la tabla
