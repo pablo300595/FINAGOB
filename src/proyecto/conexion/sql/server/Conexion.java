@@ -9,25 +9,17 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/*
-Actualizacion 
-HECHA POR SEGUNDA
-VEZ
- */
 public class Conexion {
     Statement Sentencias;
     ResultSet Datos;
     PreparedStatement psPrepararSentencia;
     Connection conexion;
-    
 
-    
-    //Metodo para conectarse al servidor de base de datos
+    //Metodo para conectarse al servidor de base de datos mediante conexión por autenticación de Windows
     public Conexion() throws SQLException{
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String url= "jdbc:sqlserver://localhost:1433;databaseName=AGENDAFINAGOB;integratedSecurity=true;";
-            //String url="jdbc:sqlserver://;database=AGENDAFINAGOB;integratedSecurity=true;";
             conexion=DriverManager.getConnection(url);
             Sentencias= conexion.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
         } catch (ClassNotFoundException ex) {
