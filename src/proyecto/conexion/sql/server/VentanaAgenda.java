@@ -849,7 +849,6 @@ public class VentanaAgenda extends javax.swing.JFrame {
     }//GEN-LAST:event_button_cancelarActionPerformed
 
     private void button_borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_borrarActionPerformed
-        System.out.println("Activacion de evento");
         if(JOptionPane.YES_NO_OPTION==JOptionPane.showConfirmDialog(null,"Desea eliminar los registros "+"'","Eliminar registros",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE)){
             System.out.println("Previo a mensaje y deshabilitacion");
             String Nombre=textfield_nombre.getText();
@@ -857,18 +856,14 @@ public class VentanaAgenda extends javax.swing.JFrame {
             deshabilitar();
             try {
                 Conect = new Conexion();
-                //PreparedStatement pst=Conect.Eliminar("Contacto", "Nombre", Nombre);
                 Conect.Eliminar("Contacto", "Nombre", Nombre);
                 JOptionPane.showMessageDialog(null, mensaje);
-                //cargarTabla("");
                 primeraCarga();
                 JOptionPane.showMessageDialog(null, "se cargó tabla correctamente");
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex);
             }
-        }else{
-            deshabilitar();
-        }
+        }else{deshabilitar();}
     }//GEN-LAST:event_button_borrarActionPerformed
 
     private void button_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_agregarActionPerformed
