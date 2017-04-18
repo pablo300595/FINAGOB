@@ -28,6 +28,7 @@ public class VentanaAgenda extends javax.swing.JFrame {
         deshabilitar();
         campoconsulta="";
         jDesktopPane1.setBorder(new ImagenFondo());
+        
     }
     /*
         Validación de campos usando un método para cada campo. 
