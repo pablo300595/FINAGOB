@@ -813,7 +813,7 @@ public class VentanaAgenda extends javax.swing.JFrame {
 
     //Evento al presionar un registro de la tabla
     private void table_consultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_consultaMouseClicked
-
+        
         habilitar();
         int filas;
         String Id;
@@ -823,6 +823,8 @@ public class VentanaAgenda extends javax.swing.JFrame {
         System.out.println("Valor ID= "+Id);
         id_actualizar =Id;
         cargarDatos(Id);
+        
+        
     }//GEN-LAST:event_table_consultaMouseClicked
 
     private void textfield_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfield_buscarActionPerformed
