@@ -40,7 +40,7 @@ public class VentanaAgenda extends javax.swing.JFrame {
         patron = Pattern.compile(regex);
 		for (String texto : listaTextos) {
 			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.find();
+			boolean esCoincidente = emparejador.matches();
 			if (esCoincidente) {
 				return true;
 			}
@@ -54,7 +54,7 @@ public class VentanaAgenda extends javax.swing.JFrame {
         patron = Pattern.compile(regex);
 		for (String texto : listaTextos) {
 			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.find();
+			boolean esCoincidente = emparejador.matches();
 			if (esCoincidente) {
 				return true;
 			}
@@ -68,7 +68,7 @@ public class VentanaAgenda extends javax.swing.JFrame {
         patron = Pattern.compile(regex);
 		for (String texto : listaTextos) {
 			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.find();
+			boolean esCoincidente = emparejador.matches();
 			if (esCoincidente) {
 				return true;
 			}
@@ -82,7 +82,7 @@ public class VentanaAgenda extends javax.swing.JFrame {
         patron = Pattern.compile(regex);
 		for (String texto : listaTextos) {
 			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.find();
+			boolean esCoincidente = emparejador.matches();
 			if (esCoincidente) {
 				return true;
 			}
@@ -96,7 +96,7 @@ public class VentanaAgenda extends javax.swing.JFrame {
         patron = Pattern.compile(regex);
 		for (String texto : listaTextos) {
 			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.find();
+			boolean esCoincidente = emparejador.matches();
 			if (esCoincidente) {
 				return true;
 			}
