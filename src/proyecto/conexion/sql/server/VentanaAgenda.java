@@ -49,132 +49,68 @@ public class VentanaAgenda extends javax.swing.JFrame {
     }
     
     public boolean validacionNombre(String txt){
-        String[] listaTextos=txt.split(",");
-        regex = "[A-Za-z]+ +[A-Za-z]";
+        regex = "(([a-zA-Z])+\u0020([a-zA-Z])+|([a-zA-Z])+)";
         patron = Pattern.compile(regex);
-		for (String texto : listaTextos) {
-			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.matches();
-			if (esCoincidente) {
-				return true;
-			}
-		}
-        return false;
+        Matcher emparejador = patron.matcher(txt);
+        boolean esCoincidente = emparejador.matches();
+        return esCoincidente;
     }
     
     public boolean validacionApellido(String txt){
-        String[] listaTextos=txt.split(",");
-        regex = "[A-Za-z]+ +[A-Za-z]";
+        regex = "(([a-zA-Z])+\u0020([a-zA-Z])+)";
         patron = Pattern.compile(regex);
-		for (String texto : listaTextos) {
-			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.matches();
-			if (esCoincidente) {
-				return true;
-			}
-		}
-        return false;
+        Matcher emparejador = patron.matcher(txt);
+        boolean esCoincidente = emparejador.matches();
+        return esCoincidente;
     }
     
     public boolean validacionDepartamento(String txt){
-        String[] listaTextos=txt.split(",");
-        regex = "[A-Za-z]";
+        regex = "(([a-zA-Z])+)";
         patron = Pattern.compile(regex);
-		for (String texto : listaTextos) {
-			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.matches();
-			if (esCoincidente) {
-				return true;
-			}
-		}
-        return false;
+        Matcher emparejador = patron.matcher(txt);
+        boolean esCoincidente = emparejador.matches();
+        return esCoincidente;
     }
     
     public boolean validacionSecretaria(String txt){
-        String[] listaTextos=txt.split(",");
-        regex = "[A-Za-z]";
+        regex = "(([a-zA-Z])+)";
         patron = Pattern.compile(regex);
-		for (String texto : listaTextos) {
-			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.matches();
-			if (esCoincidente) {
-				return true;
-			}
-		}
-        return false;
+        Matcher emparejador = patron.matcher(txt);
+        boolean esCoincidente = emparejador.matches();
+        return esCoincidente;
     }
     
     public boolean validacionTelefonoOficina(String txt){
-        String[] listaTextos=txt.split(",");
-        regex = "([0-9][0-9][0-9])+-+[0-9][0-9][0-9][0-9][0-9][0-9][0-9]";
+        regex = "([0-9][0-9][0-9])-[0-9][0-9][0-9][0-9][0-9][0-9][0-9]";
         patron = Pattern.compile(regex);
-		for (String texto : listaTextos) {
-			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.find();
-			if (esCoincidente) {
-				return true;
-			}
-		}
-        return false;
+	Matcher emparejador = patron.matcher(txt);
+        boolean esCoincidente = emparejador.matches();
+        return esCoincidente;
     }
     
     public boolean validacionTelefonoCelular(String txt){
-        String[] listaTextos=txt.split(",");
-        regex = "([0-9][0-9][0-9])+-+[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]";
+        regex = "([0-9][0-9][0-9])-[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]";
         patron = Pattern.compile(regex);
-		for (String texto : listaTextos) {
-			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.find();
-			if (esCoincidente) {
-				return true;
-			}
-		}
-        return false;
+        Matcher emparejador = patron.matcher(txt);
+        boolean esCoincidente = emparejador.matches();
+        return esCoincidente;
     }
     
     public boolean validacionDomicilio(String txt){
-        String[] listaTextos=txt.split(",");
-        regex = "([A-Za-z])*";
+        regex = "(([a-zA-Z])+)";
         patron = Pattern.compile(regex);
-		for (String texto : listaTextos) {
-			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.find();
-			if (esCoincidente) {
-				return true;
-			}
-		}
-        return false;
+        Matcher emparejador = patron.matcher(txt);
+        boolean esCoincidente = emparejador.find();
+        return esCoincidente;
     }
     
     public boolean validacionDireccion(String txt){
-        String[] listaTextos=txt.split(",");
-        regex = "[A-Za-z]";
+        regex = "(([a-zA-Z])+)";
         patron = Pattern.compile(regex);
-		for (String texto : listaTextos) {
-			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.find();
-			if (esCoincidente) {
-				return true;
-			}
-		}
-        return false;
+        Matcher emparejador = patron.matcher(txt);
+        boolean esCoincidente = emparejador.find();
+        return esCoincidente;
     }
-    
-    public boolean validacionObservaciones(String txt){
-        String[] listaTextos=txt.split(",");
-        regex = "([A-Za-z])*";
-        patron = Pattern.compile(regex);
-		for (String texto : listaTextos) {
-			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.find();
-			if (esCoincidente) {
-				return true;
-			}
-		}
-        return false;
-    }
-    
-    
     
     private void primeraCarga(){
         String[] titulos={"Nombre","Apellido","Departamento","Telefono_Oficina",
@@ -875,14 +811,15 @@ public class VentanaAgenda extends javax.swing.JFrame {
 
     private void button_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_guardarActionPerformed
     //Comprobacion de campos al presionar guardar
+    if(validacionNombre(textfield_nombre.getText())==false){
+        JOptionPane.showMessageDialog(null,"El Nombre no es valido");
+        return;
+    }
     if(validacionCorreo(textfield_correo.getText())==false){
         JOptionPane.showMessageDialog(null,"El correo no es valido");
         return;
     }
-    if(validacionNombre(textfield_nombre.getText())==false){
-        JOptionPane.showMessageDialog(null,"El Nombre no es valido");
-        return;
-    } 
+     
     if(validacionApellido(textfield_apellido.getText())==false){
         JOptionPane.showMessageDialog(null,"El Apellido no es valido");
         return;
