@@ -180,10 +180,9 @@ public class VentanaTramites extends javax.swing.JFrame {
     
     
     public void primeraCarga(){
-        String[] titulos={"D_F","folio","beneficiario","concepto","tipo_documento",
-        "Correo"};
+        String[] titulos={"DF","folio","beneficiario","concepto","tipo_documento",};
 
-        String[] registros= new String[6];
+        String[] registros= new String[5];
         modelo = new DefaultTableModel(null,titulos);
         try {
             //Mostrar registros en la tabla
@@ -665,14 +664,14 @@ public class VentanaTramites extends javax.swing.JFrame {
             System.out.println("Previo a conexion..."); 
             Conect = new Conexion(); 
             if(accion.equals("Insertar")){
-                sql= "INSERT INTO tramite(D_F,folio,beneficiario,concepto,tipo_documento,no_documento,importe_documento,fecha_area,caja_area,recibido_area,fecha_tesoreria,nombre_tesoreria,Id_Contacto)"+" VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                sql= "INSERT INTO tramite(D_F,folio,beneficiario,concepto,tipo_documento,no_documento,importe_documento,fecha_area,caja_area,recibido_area,fecha_tesoreria,nombre_tesoreria)"+" VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
                 mensaje="Los datos se han insertado";
                 deshabilitar();
             }
             
             if((accion.equals("Modificar"))){
                 System.out.println("Estoy actualizando...");
-                sql= "UPDATE Contacto SET D_F = ?, folio= ?,beneficiario= ?,concepto= ?,tipo_documento= ?, no_documento= ?,importe_documento= ?,fecha_area= ?,caja_area = ?,recibido_area= ?,fecha_tesoreria=?,nombre_tesoreria=?,Id_Contacto=? WHERE folio = "+"'"+id_actualizar+"'";
+                sql= "UPDATE Contacto SET D_F = ?, folio= ?,beneficiario= ?,concepto= ?,tipo_documento= ?, no_documento= ?,importe_documento= ?,fecha_area= ?,caja_area = ?,recibido_area= ?,fecha_tesoreria=?,nombre_tesoreria=? WHERE folio = "+"'"+id_actualizar+"'";
                 mensaje="Los datos se han actualizado";
                 deshabilitar();
             }
@@ -767,7 +766,7 @@ public class VentanaTramites extends javax.swing.JFrame {
             try {
                 Conect = new Conexion();
                 //PreparedStatement pst=Conect.Eliminar("Contacto", "Nombre", Nombre);
-                Conect.Eliminar("Contacto", "Nombre", Nombre);
+                Conect.Eliminar("tramite", "folio", Nombre);
                 JOptionPane.showMessageDialog(null, mensaje);
                 //cargarTabla("");
                 primeraCarga();
@@ -785,7 +784,7 @@ public class VentanaTramites extends javax.swing.JFrame {
     }//GEN-LAST:event_button_agregarActionPerformed
 
     private void button_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_guardarActionPerformed
-    if(validacionCorreo(textfield_tipo_documento.getText())==false){
+    /*if(validacionCorreo(textfield_tipo_documento.getText())==false){
         JOptionPane.showMessageDialog(null,"El correo no es valido");
         return;
     }
@@ -813,7 +812,7 @@ public class VentanaTramites extends javax.swing.JFrame {
     if(validacionDomicilio(textfield_fecha_area.getText())==false){
         JOptionPane.showMessageDialog(null,"Domicilio no valido");
         return;
-    }    
+    } */   
     insertarModificar();                  
     }//GEN-LAST:event_button_guardarActionPerformed
     //Metodo para deshabilitar componentes de interfaz

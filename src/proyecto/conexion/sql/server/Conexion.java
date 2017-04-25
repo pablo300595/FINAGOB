@@ -65,7 +65,7 @@ public class Conexion {
     }
     
     public ResultSet primerCarga() throws SQLException{
-        Datos1= Sentencias.executeQuery("SELECT * FROM Contacto");
+        Datos1= Sentencias.executeQuery("SELECT * FROM tramite");
         return Datos1;
     }
     
