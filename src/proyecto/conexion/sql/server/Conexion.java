@@ -28,7 +28,7 @@ public class Conexion {
     public Conexion() throws SQLException{
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url= "jdbc:sqlserver://localhost:1433;databaseName=AGENDAFINAGOB;integratedSecurity=true;";
+            String url= "jdbc:sqlserver://localhost:1433;databaseName=AGENDAFINAGOB;user=sa;password=lalitro19;";
             
             conexion=DriverManager.getConnection(url);
             Sentencias= conexion.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
@@ -71,6 +71,11 @@ public class Conexion {
     
     public ResultSet primerCarga1() throws SQLException{
         Datos1= Sentencias.executeQuery("SELECT * FROM Correspondencia");
+        return Datos1;
+    }
+    
+    public ResultSet primerCarga2() throws SQLException{
+        Datos1= Sentencias.executeQuery("SELECT * FROM Usuarios");
         return Datos1;
     }
     

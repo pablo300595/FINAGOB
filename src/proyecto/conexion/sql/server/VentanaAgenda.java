@@ -50,7 +50,7 @@ public class VentanaAgenda extends javax.swing.JFrame {
     
     public boolean validacionNombre(String txt){
         String[] listaTextos=txt.split(",");
-        regex = "[A-Za-z]+ +[A-Za-z]";
+        regex = "[A-Za-z]+ [\u0020][A-Za-z]+|[A-Za-z]+";
         patron = Pattern.compile(regex);
 		for (String texto : listaTextos) {
 			Matcher emparejador = patron.matcher(texto);
@@ -626,6 +626,8 @@ public class VentanaAgenda extends javax.swing.JFrame {
         jLabel13.setForeground(new java.awt.Color(0, 51, 255));
         jLabel13.setText("AGENDA ELECTRONICA");
 
+        jDesktopPane1.setLayer(jLabel13, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
@@ -642,14 +644,13 @@ public class VentanaAgenda extends javax.swing.JFrame {
                 .addComponent(jLabel13)
                 .addGap(44, 44, 44))
         );
-        jDesktopPane1.setLayer(jLabel13, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(0, 18, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -769,7 +770,7 @@ public class VentanaAgenda extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 70, Short.MAX_VALUE)
+            .addGap(0, 57, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
