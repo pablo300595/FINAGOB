@@ -214,7 +214,7 @@ public class Usuarios extends javax.swing.JFrame {
             
             if((accion.equals("Modificar"))){
                 System.out.println("Estoy actualizando...");
-                sql= "UPDATE Contacto SET Nombre = ?, Apellido = ?,Telefono = ?,NombreUsuario = ?,Contraseña = ?,TipoUsuario = ? WHERE Nombre = "+"'"+id_actualizar+"'";
+                sql= "UPDATE Usuarios SET Nombre = ?, Apellido = ?,Telefono = ?,NombreUsuario = ?,Contraseña = ?,TipoUsuario = ? WHERE Nombre = "+"'"+id_actualizar+"'";
                 mensaje="Los datos se han actualizado";
                 deshabilitar();
             }
@@ -249,6 +249,7 @@ public class Usuarios extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblNombres = new javax.swing.JLabel();
         txtNombres = new javax.swing.JTextField();
@@ -278,15 +279,23 @@ public class Usuarios extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 102));
 
+        jLabel1.setText("Control Usuarios");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(416, 416, 416)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 231, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(78, 78, 78)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(116, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -550,6 +559,10 @@ public class Usuarios extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"El telefono de oficina no es valido");
             return;
         }
+        if(ComboTipoUsuario.getSelectedIndex()==0){
+            JOptionPane.showMessageDialog(null,"Seleccione un tipo de usuario");
+            return;
+        }
         if(validacionUsuario(txtUsuario.getText()) ==false) {
             JOptionPane.showMessageDialog(null,"El Nombre de Usuario no es valido");
             return;
@@ -558,22 +571,17 @@ public class Usuarios extends javax.swing.JFrame {
         String contra1,contra2;
         contra1 = txtContraseña1.getText();
         contra2 = txtContraseña2.getText();
-        if(contra1 == contra2){
+        if(contra1.equals(contra2)){
             if(validacionContraseña(txtContraseña1.getText()) ==false) {
             JOptionPane.showMessageDialog(null,"La contraseña no es vaida");
             return;
-        }
-        } 
-        if(contra1 != contra2){
+            }else {insertarModificar();}
+        }else {
             JOptionPane.showMessageDialog(null,"Las contraseñas no coinciden");
             txtContraseña1.setText("");
             txtContraseña2.setText("");
             return;
         }
-        
-        
-  
-        insertarModificar();
     }//GEN-LAST:event_button_guardarActionPerformed
 
     private void button_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_cancelarActionPerformed
@@ -611,10 +619,7 @@ public class Usuarios extends javax.swing.JFrame {
     private javax.swing.JButton button_borrar;
     private javax.swing.JButton button_cancelar;
     private javax.swing.JButton button_guardar;
-    private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JDesktopPane jDesktopPane2;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
