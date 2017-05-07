@@ -37,144 +37,100 @@ public class VentanaTramites extends javax.swing.JFrame {
         Validación de campos usando un método para cada campo. 
         Se realizan evaluaciones con expresiones regulares.
     */
-    public boolean validacionCorreo(String txt){
-        String[] listaTextos=txt.split(",");
-        regex = "[A-Za-z]+@[a-z]+\\.[a-z]+";
+    public boolean validacionDF(String txt){
+        regex = "(([0-9]{4})/([0-9]{2}))|(S/N)";
         patron = Pattern.compile(regex);
-		for (String texto : listaTextos) {
-			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.find();
-			if (esCoincidente) {
-				return true;
-			}
-		}
-        return false;
+        Matcher emparejador = patron.matcher(txt);
+        boolean esCoincidente = emparejador.matches();
+        return esCoincidente;
     }
     
-    public boolean validacionNombre(String txt){
-        String[] listaTextos=txt.split(",");
-        regex = "[A-Za-z]+ +[A-Za-z]";
+    public boolean validacionFolio(String txt){
+        regex = "([0-9]{4})";
         patron = Pattern.compile(regex);
-		for (String texto : listaTextos) {
-			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.find();
-			if (esCoincidente) {
-				return true;
-			}
-		}
-        return false;
+        Matcher emparejador = patron.matcher(txt);
+        boolean esCoincidente = emparejador.matches();
+        return esCoincidente;
     }
     
-    public boolean validacionApellido(String txt){
-        String[] listaTextos=txt.split(",");
-        regex = "[A-Za-z]+ +[A-Za-z]";
+    public boolean validacionBeneficiario(String txt){
+        regex = "(([A-Z]{1,20})\u0020([A-Z]{1,20}))|([A-Z]{1,20})";
         patron = Pattern.compile(regex);
-		for (String texto : listaTextos) {
-			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.find();
-			if (esCoincidente) {
-				return true;
-			}
-		}
-        return false;
+        Matcher emparejador = patron.matcher(txt);
+        boolean esCoincidente = emparejador.matches();
+        return esCoincidente;
     }
     
-    public boolean validacionDepartamento(String txt){
-        String[] listaTextos=txt.split(",");
-        regex = "[A-Za-z]";
+    public boolean validacionConcepto(String txt){
+        regex = "((([A-Z]|\u0020){1,50}))";
         patron = Pattern.compile(regex);
-		for (String texto : listaTextos) {
-			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.find();
-			if (esCoincidente) {
-				return true;
-			}
-		}
-        return false;
+        Matcher emparejador = patron.matcher(txt);
+        boolean esCoincidente = emparejador.matches();
+        return esCoincidente;
     }
     
-    public boolean validacionSecretaria(String txt){
-        String[] listaTextos=txt.split(",");
-        regex = "[A-Za-z]";
+    public boolean validacionDocumentoTipo(String txt){
+        regex = "((([A-Z]|\u0020){1,20}))";
         patron = Pattern.compile(regex);
-		for (String texto : listaTextos) {
-			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.find();
-			if (esCoincidente) {
-				return true;
-			}
-		}
-        return false;
+        Matcher emparejador = patron.matcher(txt);
+        boolean esCoincidente = emparejador.matches();
+        return esCoincidente;
+    }
+        
+
+    public boolean validacionDocumentoNo(String txt){
+        regex = "((([0-9]){4,6}))";
+        patron = Pattern.compile(regex);
+        Matcher emparejador = patron.matcher(txt);
+        boolean esCoincidente = emparejador.matches();
+        return esCoincidente;
     }
     
-    public boolean validacionTelefonoOficina(String txt){
-        String[] listaTextos=txt.split(",");
-        regex = "([0-9][0-9][0-9])+-+[0-9][0-9][0-9][0-9][0-9][0-9][0-9]";
+    public boolean validacionDocumentoImporte(String txt){
+        regex = "(([0-9]){1,20}\\.(([0-9]){1,20}))";
         patron = Pattern.compile(regex);
-		for (String texto : listaTextos) {
-			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.find();
-			if (esCoincidente) {
-				return true;
-			}
-		}
-        return false;
+        Matcher emparejador = patron.matcher(txt);
+        boolean esCoincidente = emparejador.matches();
+        return esCoincidente;
     }
     
-    public boolean validacionTelefonoCelular(String txt){
-        String[] listaTextos=txt.split(",");
-        regex = "([0-9][0-9][0-9])+-+[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]";
+    public boolean validacionAreaFecha(String txt){
+        regex = "([0-9]{4}-[0-9]{2}-[0-9]{2})";
         patron = Pattern.compile(regex);
-		for (String texto : listaTextos) {
-			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.find();
-			if (esCoincidente) {
-				return true;
-			}
-		}
-        return false;
+        Matcher emparejador = patron.matcher(txt);
+        boolean esCoincidente = emparejador.matches();
+        return esCoincidente;
     }
     
-    public boolean validacionDomicilio(String txt){
-        String[] listaTextos=txt.split(",");
-        regex = "([A-Za-z])*";
+    public boolean validacionAreaCaja(String txt){
+        regex = "(CAJA 1|CAJA 2|CAJA 3| CAJA 4)";
         patron = Pattern.compile(regex);
-		for (String texto : listaTextos) {
-			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.find();
-			if (esCoincidente) {
-				return true;
-			}
-		}
-        return false;
+        Matcher emparejador = patron.matcher(txt);
+        boolean esCoincidente = emparejador.matches();
+        return esCoincidente;
     }
     
-    public boolean validacionDireccion(String txt){
-        String[] listaTextos=txt.split(",");
-        regex = "[A-Za-z]";
+    public boolean validacionAreaRecibido(String txt){
+        regex = "([0-9]{1,15}\u0025[0-9]{1-15})|([0-9]{1,15})";
         patron = Pattern.compile(regex);
-		for (String texto : listaTextos) {
-			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.find();
-			if (esCoincidente) {
-				return true;
-			}
-		}
-        return false;
+        Matcher emparejador = patron.matcher(txt);
+        boolean esCoincidente = emparejador.matches();
+        return esCoincidente;
     }
     
-    public boolean validacionObservaciones(String txt){
-        String[] listaTextos=txt.split(",");
-        regex = "([A-Za-z])*";
+    public boolean validacionTesoreriaFecha(String txt){
+        regex = "([0-9]{4}-[0-9]{2}-[0-9]{2})";
         patron = Pattern.compile(regex);
-		for (String texto : listaTextos) {
-			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.find();
-			if (esCoincidente) {
-				return true;
-			}
-		}
-        return false;
+        Matcher emparejador = patron.matcher(txt);
+        boolean esCoincidente = emparejador.matches();
+        return esCoincidente;
+    }
+    public boolean validacionTesoreriaNombre(String txt){
+        regex = "([0-9]{1,15}\u0025[0-9]{1-15})|([0-9]{1,15})";
+        patron = Pattern.compile(regex);
+        Matcher emparejador = patron.matcher(txt);
+        boolean esCoincidente = emparejador.matches();
+        return esCoincidente;
     }
     
     
@@ -872,35 +828,55 @@ public class VentanaTramites extends javax.swing.JFrame {
     }//GEN-LAST:event_button_agregarActionPerformed
 
     private void button_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_guardarActionPerformed
-    /*if(validacionCorreo(textfield_tipo_documento.getText())==false){
-        JOptionPane.showMessageDialog(null,"El correo no es valido");
+    if(validacionDF(textfield_DF.getText())==false){
+        JOptionPane.showMessageDialog(null,"Número DF no válido");
         return;
     }
-    if(validacionNombre(textfield_DF.getText())==false){
-        JOptionPane.showMessageDialog(null,"El Nombre no es valido");
+    if(validacionFolio(textfield_folio.getText())==false){
+        JOptionPane.showMessageDialog(null,"El Folio no es valido");
         return;
     } 
-    if(validacionDepartamento(textfield_folio.getText())==false){
-        JOptionPane.showMessageDialog(null,"El Departamento no es valido");
+    if(validacionBeneficiario(textfield_beneficiario.getText())==false){
+        JOptionPane.showMessageDialog(null,"El nombre de beneficiario u entidad no cumple con las reglas de nombre");
         return;
     } 
-    if(validacionSecretaria(textfield_beneficiario.getText())==false){
-        JOptionPane.showMessageDialog(null,"La secretaria no es valida");
+    if(validacionConcepto(textfield_beneficiario.getText())==false){
+        JOptionPane.showMessageDialog(null,"El concepto escrito es no válido");
         return;
     }
-    if(validacionTelefonoOficina(textfield_concepto.getText())==false){
-        JOptionPane.showMessageDialog(null,"El telefono de oficina no es valido");
+    if(validacionDocumentoTipo(textfield_tipo_documento.getText())==false){
+        JOptionPane.showMessageDialog(null,"El tipo de documento no es valido");
         return;
     }
-    if(validacionTelefonoCelular(textfield_caja_area.getText())==false){
-        JOptionPane.showMessageDialog(null,"El telefono celular no es valido");
+    if(validacionDocumentoNo(textfield_no_documento.getText())==false){
+        JOptionPane.showMessageDialog(null,"El número de documento no es valido");
         return;
     }
    
-    if(validacionDomicilio(textfield_fecha_area.getText())==false){
-        JOptionPane.showMessageDialog(null,"Domicilio no valido");
+    if(validacionDocumentoImporte(textfield_importe_documento.getText())==false){
+        JOptionPane.showMessageDialog(null,"El importe no es válido");
         return;
-    } */   
+    }
+    if(validacionAreaFecha(textfield_fecha_area.getDateFormatString())==false){
+        JOptionPane.showMessageDialog(null,"La fecha de área no es válida");
+        return;
+    }
+    if(validacionAreaCaja(textfield_caja_area.getText())==false){
+        JOptionPane.showMessageDialog(null,"La caja no es válida");
+        return;
+    }
+    if(validacionAreaRecibido(textfield_recibido_area.getText())==false){
+        JOptionPane.showMessageDialog(null,"El nombre de recibido no es válido");
+        return;
+    }
+    if(validacionTesoreriaFecha(textfield_fecha_tesoreria.getDateFormatString())==false){
+        JOptionPane.showMessageDialog(null,"La fecha no es válida");
+        return;
+    }
+    if(validacionTesoreriaNombre(textfield_nombre_tesoreria.getText())==false){
+        JOptionPane.showMessageDialog(null,"El nombre no es válido");
+        return;
+    } 
     insertarModificar();                  
     }//GEN-LAST:event_button_guardarActionPerformed
 
