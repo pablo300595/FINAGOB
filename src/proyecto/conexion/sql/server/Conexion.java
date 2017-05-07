@@ -24,6 +24,7 @@ public class Conexion {
     Statement psPrepararSentencia;
     Connection conexion;
     
+    
     //Metodo para conectarse al servidor de base de datos
     public Conexion() throws SQLException{
         try {
