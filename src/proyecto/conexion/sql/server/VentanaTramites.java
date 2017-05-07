@@ -187,7 +187,7 @@ public class VentanaTramites extends javax.swing.JFrame {
         try {
             //Mostrar registros en la tabla
             Conect = new Conexion();
-            ResultSet consulta= Conect.primerCarga();
+            ResultSet consulta= Conect.primerCarga3();
             while(consulta.next()){
                 registros[0] = consulta.getString("D_F");
                 registros[1] = consulta.getString("folio");
@@ -220,8 +220,6 @@ public class VentanaTramites extends javax.swing.JFrame {
         textfield_DF = new javax.swing.JTextField();
         textfield_folio = new javax.swing.JTextField();
         textfield_beneficiario = new javax.swing.JTextField();
-        textfield_fecha_area = new javax.swing.JTextField();
-        textfield_concepto = new javax.swing.JTextField();
         textfield_caja_area = new javax.swing.JTextField();
         textfield_tipo_documento = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
@@ -230,13 +228,15 @@ public class VentanaTramites extends javax.swing.JFrame {
         textfield_importe_documento = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         textfield_recibido_area = new javax.swing.JTextField();
-        textfield_fecha_tesoreria = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         textfield_nombre_tesoreria = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
+        textfield_fecha_area = new com.toedter.calendar.JDateChooser();
+        textfield_fecha_tesoreria = new com.toedter.calendar.JDateChooser();
+        textfield_concepto = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_consulta = new javax.swing.JTable();
@@ -246,9 +246,6 @@ public class VentanaTramites extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         button_agregar = new javax.swing.JButton();
         button_borrar = new javax.swing.JButton();
@@ -258,7 +255,8 @@ public class VentanaTramites extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
-        jPanel11 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jDesktopPane2 = new javax.swing.JDesktopPane();
 
         jInternalFrame1.setVisible(true);
 
@@ -311,6 +309,17 @@ public class VentanaTramites extends javax.swing.JFrame {
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel19.setText("Tesorería Recibido");
 
+        textfield_fecha_area.setDateFormatString("yyyy-MM-d");
+
+        textfield_fecha_tesoreria.setDateFormatString("yyyy-MM-d");
+
+        textfield_concepto.setEditable(true);
+        textfield_concepto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textfield_conceptoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -335,11 +344,10 @@ public class VentanaTramites extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel5))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(textfield_fecha_area, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                                        .addComponent(textfield_tipo_documento, javax.swing.GroupLayout.Alignment.LEADING))
-                                    .addComponent(textfield_fecha_tesoreria, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(textfield_tipo_documento)
+                                    .addComponent(textfield_fecha_area, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                                    .addComponent(textfield_fecha_tesoreria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel10)
@@ -360,17 +368,14 @@ public class VentanaTramites extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(textfield_beneficiario, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel7)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(textfield_recibido_area)
-                                        .addGap(60, 60, 60)))
-                                .addComponent(textfield_concepto, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(textfield_importe_documento, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(textfield_beneficiario, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel7)
+                                .addGap(18, 18, 18)
+                                .addComponent(textfield_concepto, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(textfield_recibido_area, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                                .addComponent(textfield_importe_documento, javax.swing.GroupLayout.Alignment.LEADING))))
                     .addComponent(jLabel4)
                     .addComponent(jLabel19)
                     .addComponent(jLabel11))
@@ -405,21 +410,24 @@ public class VentanaTramites extends javax.swing.JFrame {
                 .addGap(7, 7, 7)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(textfield_fecha_area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(textfield_caja_area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16)
-                    .addComponent(textfield_recibido_area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel6)
+                        .addComponent(jLabel8)
+                        .addComponent(textfield_caja_area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel16)
+                        .addComponent(textfield_recibido_area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textfield_fecha_area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel19)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textfield_fecha_tesoreria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17)
-                    .addComponent(textfield_nombre_tesoreria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel19)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel17)
+                            .addComponent(textfield_nombre_tesoreria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel18)))
+                    .addComponent(textfield_fecha_tesoreria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
 
@@ -450,7 +458,7 @@ public class VentanaTramites extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 904, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 779, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -490,9 +498,9 @@ public class VentanaTramites extends javax.swing.JFrame {
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addGap(66, 66, 66)
+                .addGap(67, 67, 67)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE)
                 .addComponent(jLabel13)
                 .addGap(261, 261, 261)
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -521,49 +529,13 @@ public class VentanaTramites extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-
-        jPanel7.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jButton1.setText("Correspondencia");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Salir");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel6.setBackground(new java.awt.Color(204, 204, 255));
@@ -669,7 +641,7 @@ public class VentanaTramites extends javax.swing.JFrame {
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 681, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jPanel10.setBackground(new java.awt.Color(51, 153, 0));
@@ -683,21 +655,31 @@ public class VentanaTramites extends javax.swing.JFrame {
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 681, Short.MAX_VALUE)
         );
 
-        jPanel11.setBackground(new java.awt.Color(102, 153, 0));
-        jPanel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 11, Short.MAX_VALUE)
+        javax.swing.GroupLayout jDesktopPane2Layout = new javax.swing.GroupLayout(jDesktopPane2);
+        jDesktopPane2.setLayout(jDesktopPane2Layout);
+        jDesktopPane2Layout.setHorizontalGroup(
+            jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 104, Short.MAX_VALUE)
         );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        jDesktopPane2Layout.setVerticalGroup(
+            jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 643, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jDesktopPane2)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jDesktopPane2)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -705,35 +687,34 @@ public class VentanaTramites extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(7, 7, 7)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1)
-                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(31, 31, 31)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -741,15 +722,17 @@ public class VentanaTramites extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(44, 44, 44)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -760,21 +743,21 @@ public class VentanaTramites extends javax.swing.JFrame {
     //Metodo que inserta y modifica los datos
     private void insertarModificar(){
         String df,folio,ben,con,tipo_doc,tipo_no,tipo_imp,area_fec,area_caja,area_recib,tesoreria_fec,tesoreria_nom;
-          int      id_contacto;
+        int id_contacto;
         df = textfield_DF.getText();
         folio = textfield_folio.getText();
         ben = textfield_beneficiario.getText();
-        con = textfield_concepto.getText();
+        con = (String)textfield_concepto.getSelectedItem();
         
         tipo_doc=textfield_tipo_documento.getText();
         tipo_no=textfield_no_documento.getText();
-               tipo_imp  =  textfield_importe_documento.getText();
-               area_fec   =      textfield_fecha_area.getText();
-               area_caja   =              textfield_caja_area.getText();
-                area_recib  =              textfield_recibido_area.getText();
-                tesoreria_fec=                        textfield_fecha_tesoreria.getText();
-                tesoreria_nom =                       textfield_nombre_tesoreria.getText();
-                id_contacto=contador;
+        tipo_imp=textfield_importe_documento.getText();
+        area_fec=textfield_fecha_area.getDateFormatString();
+        area_caja=textfield_caja_area.getText();
+        area_recib=textfield_recibido_area.getText();
+        tesoreria_fec=textfield_fecha_tesoreria.getDateFormatString();
+        tesoreria_nom=textfield_nombre_tesoreria.getText();
+        id_contacto=contador;
         
         try {
             System.out.println("Previo a conexion..."); 
@@ -830,8 +813,8 @@ public class VentanaTramites extends javax.swing.JFrame {
                 textfield_folio.setText(consulta.getString("folio"));
                 
                 textfield_beneficiario.setText(consulta.getString("beneficiario"));
-                textfield_fecha_area.setText(consulta.getString("fecha_area"));
-                textfield_concepto.setText(consulta.getString("concepto"));
+                textfield_fecha_area.setDateFormatString(consulta.getString("fecha_area"));
+                textfield_concepto.getEditor().setItem(consulta.getString("concepto"));
                 textfield_caja_area.setText(consulta.getString("caja_area"));
                 textfield_tipo_documento.setText(consulta.getString("tipo_documento"));
                         
@@ -856,17 +839,6 @@ public class VentanaTramites extends javax.swing.JFrame {
         id_actualizar =Id;
         cargarDatos(Id);
     }//GEN-LAST:event_table_consultaMouseClicked
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        VentanaCorrespondencia jFrame= new VentanaCorrespondencia();//"Frame2" es el nombre que tu le pusiste a tu 2do jframe
-
-        jFrame.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void button_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_cancelarActionPerformed
         deshabilitar();
@@ -931,29 +903,41 @@ public class VentanaTramites extends javax.swing.JFrame {
     } */   
     insertarModificar();                  
     }//GEN-LAST:event_button_guardarActionPerformed
+
+    private void textfield_conceptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfield_conceptoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textfield_conceptoActionPerformed
     //Metodo para deshabilitar componentes de interfaz
     public void deshabilitar(){
         accion="Insertar";
         textfield_DF.setEnabled(false);
-        
         textfield_folio.setEnabled(false);
- 
         textfield_beneficiario.setEnabled(false);
-        textfield_concepto.setEnabled(false);
-        textfield_caja_area.setEnabled(false);
+        textfield_concepto.setEnabled(true);
         textfield_tipo_documento.setEnabled(false);
-        
+        textfield_caja_area.setEnabled(false);
+        textfield_no_documento.setEnabled(false);
+        textfield_importe_documento.setEnabled(false);
         textfield_fecha_area.setEnabled(false);
+        textfield_caja_area.setEnabled(false);
+        textfield_recibido_area.setEnabled(false);
+        textfield_fecha_tesoreria.setEnabled(false);
+        textfield_nombre_tesoreria.setEnabled(false);
+        textfield_concepto.setEnabled(false);
+       
         textfield_DF.setText("");
-
         textfield_folio.setText("");
         textfield_beneficiario.setText("");
-        textfield_concepto.setText("");
-        textfield_caja_area.setText("");
+        textfield_concepto.getEditor().setItem("NINGUNO");
         textfield_tipo_documento.setText("");
-        
-
-        textfield_fecha_area.setText("");
+        textfield_caja_area.setText("");
+        textfield_no_documento.setText("");
+        textfield_importe_documento.setText("");
+        textfield_fecha_area.setDateFormatString("");
+        textfield_caja_area.setText("");
+        textfield_recibido_area.setText("");
+        textfield_fecha_tesoreria.setDateFormatString("");
+        textfield_nombre_tesoreria.setText("");
         textfield_DF.requestFocus();
         button_guardar.setEnabled(false);
         button_borrar.setEnabled(false);
@@ -964,23 +948,33 @@ public class VentanaTramites extends javax.swing.JFrame {
     public void habilitar(){
         accion="Insertar";
         textfield_DF.setEnabled(true);
-
         textfield_folio.setEnabled(true);
-
         textfield_beneficiario.setEnabled(true);
         textfield_concepto.setEnabled(true);
+        textfield_tipo_documento.setEnabled(true);
         textfield_caja_area.setEnabled(true);
-        textfield_tipo_documento.setEnabled(true);       
+        textfield_no_documento.setEnabled(true);
+        textfield_importe_documento.setEnabled(true);
         textfield_fecha_area.setEnabled(true);
+        textfield_caja_area.setEnabled(true);
+        textfield_recibido_area.setEnabled(true);
+        textfield_fecha_tesoreria.setEnabled(true);
+        textfield_nombre_tesoreria.setEnabled(true);
+        textfield_concepto.setEnabled(true);
+        
         textfield_DF.setText("");
-
         textfield_folio.setText("");
-
         textfield_beneficiario.setText("");
-        textfield_concepto.setText("");
-        textfield_caja_area.setText("");
+        textfield_concepto.getEditor().setItem("NINGUNO");
         textfield_tipo_documento.setText("");
-        textfield_fecha_area.setText("");
+        textfield_caja_area.setText("");
+        textfield_no_documento.setText("");
+        textfield_importe_documento.setText("");
+        textfield_fecha_area.setDateFormatString("");
+        textfield_caja_area.setText("");
+        textfield_recibido_area.setText("");
+        textfield_fecha_tesoreria.setDateFormatString("");
+        textfield_nombre_tesoreria.setText("");
         textfield_DF.requestFocus();
         button_guardar.setEnabled(true);
         button_borrar.setEnabled(true);
@@ -1055,9 +1049,8 @@ public class VentanaTramites extends javax.swing.JFrame {
     private javax.swing.JButton button_borrar;
     private javax.swing.JButton button_cancelar;
     private javax.swing.JButton button_guardar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JDesktopPane jDesktopPane2;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1079,7 +1072,6 @@ public class VentanaTramites extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1093,9 +1085,9 @@ public class VentanaTramites extends javax.swing.JFrame {
     private javax.swing.JTextField textfield_DF;
     private javax.swing.JTextField textfield_beneficiario;
     private javax.swing.JTextField textfield_caja_area;
-    private javax.swing.JTextField textfield_concepto;
-    private javax.swing.JTextField textfield_fecha_area;
-    private javax.swing.JTextField textfield_fecha_tesoreria;
+    private javax.swing.JComboBox textfield_concepto;
+    private com.toedter.calendar.JDateChooser textfield_fecha_area;
+    private com.toedter.calendar.JDateChooser textfield_fecha_tesoreria;
     private javax.swing.JTextField textfield_folio;
     private javax.swing.JTextField textfield_importe_documento;
     private javax.swing.JTextField textfield_no_documento;

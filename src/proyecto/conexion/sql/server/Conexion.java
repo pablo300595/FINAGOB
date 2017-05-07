@@ -80,5 +80,10 @@ public class Conexion {
         return Datos1;
     }
     
+    public ResultSet primerCarga3() throws SQLException{
+        Datos1= Sentencias.executeQuery("SELECT * FROM tramite");
+        return Datos1;
+    }
+    
     
 }
