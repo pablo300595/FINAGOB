@@ -774,21 +774,25 @@ public class VentanaCorrespondencia extends javax.swing.JFrame {
     }//GEN-LAST:event_button_agregarActionPerformed
 
     private void button_borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_borrarActionPerformed
+       System.out.println("Activacion de evento");
         if(JOptionPane.YES_NO_OPTION==JOptionPane.showConfirmDialog(null,"Desea eliminar los registros "+"'","Eliminar registros",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE)){
             System.out.println("Previo a mensaje y deshabilitacion");
-            String Nombre=textfield_nombre.getText();
+            String Nombre=textfield_dependencia.getText();
             mensaje="Los datos se han eliminado";
             deshabilitar();
             try {
                 Conect = new Conexion();
-                Conect.Eliminar("Contacto", "Nombre", Nombre);
+                //PreparedStatement pst=Conect.Eliminar("Correspondencia", "Dependencia", Nombre);
+                Conect.Eliminar("Correspondencia", "Dependencia", Nombre);
                 JOptionPane.showMessageDialog(null, mensaje);
+                //cargarTabla("");
                 primeraCarga();
-                JOptionPane.showMessageDialog(null, "se cargó tabla correctamente");
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, ex);
             }
-        }else{deshabilitar();}
+        }else{
+            deshabilitar();
+        }
     }//GEN-LAST:event_button_borrarActionPerformed
 
     private void button_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_cancelarActionPerformed
@@ -796,45 +800,27 @@ public class VentanaCorrespondencia extends javax.swing.JFrame {
     }//GEN-LAST:event_button_cancelarActionPerformed
 
     private void button_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_guardarActionPerformed
-        //Comprobacion de campos al presionar guardar
-        if(validacionNombre(textfield_oficio.getText())==false){
-            JOptionPane.showMessageDialog(null,"El Nombre no es valido");
-            return;
+       if(validacionImporte(textfield_importe.getText())==false){
+        JOptionPane.showMessageDialog(null,"El importe no es valido");
+        return;
         }
-        if(validacionDepartamento((String)combobox_departamento.getSelectedItem())==false){
-            JOptionPane.showMessageDialog(null,"El Departamento no es valido");
-            return;
+        if(validacionFecha(textfield_fecha.getText())==false){
+        JOptionPane.showMessageDialog(null,"La fecha no es valida");
+        return;
         }
-        if(validacionSecretaria((String)combobox_secretaria.getSelectedItem())==false){
-            JOptionPane.showMessageDialog(null,"La secretaria no es valida");
-            return;
+        if(validacionDependencia(textfield_dependencia.getText())==false){
+        JOptionPane.showMessageDialog(null,"La dependencia no es valida");
+        return;
         }
-        if(validacionTelefonoOficina(textfield_telefono_oficina.getText())==false){
-            JOptionPane.showMessageDialog(null,"El telefono de oficina no es valido");
-            return;
+        if(validacionConcepto(textfield_concepto.getText())==false){
+        JOptionPane.showMessageDialog(null,"El concepto no es valido");
+        return;
         }
-        if(validacionApellido(textfield_apellido.getText())==false){
-            JOptionPane.showMessageDialog(null,"El Apellido no es valido");
-            return;
-        }
-        if(validacionDireccion((String)combobox_direccion.getSelectedItem())==false){
-            JOptionPane.showMessageDialog(null,"Direccion no valida");
-            return;
-        }
-
-        if(validacionDomicilio(textfield_domicilio.getText())==false){
-            JOptionPane.showMessageDialog(null,"Domicilio no valido");
-            return;
-        }
-        if(validacionTelefonoCelular(textfield_telefono_celular.getText())==false){
-            JOptionPane.showMessageDialog(null,"El telefono celular no es valido");
-            return;
-        }
-        if(validacionCorreo(textfield_correo.getText())==false){
-            JOptionPane.showMessageDialog(null,"El correo no es valido");
-            return;
-        }
-
+        if(validacionTurnado(textfield_turnado.getText())==false){
+        JOptionPane.showMessageDialog(null,"El turnado no es valido");
+        return;
+        }   
+        
         insertarModificar();
     }//GEN-LAST:event_button_guardarActionPerformed
 
