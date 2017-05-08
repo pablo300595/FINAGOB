@@ -31,6 +31,7 @@ public class Conexion {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             //String url= "jdbc:sqlserver://localhost:1433;databaseName=AGENDAFINAGOB;user=sa;password=lalitro19;";
             String url= "jdbc:sqlserver://localhost:1433;databaseName=AGENDAFINAGOB;integratedSecurity=true;";
+            
             conexion=DriverManager.getConnection(url);
             Sentencias= conexion.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
         } catch (ClassNotFoundException ex) {
