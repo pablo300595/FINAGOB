@@ -18,28 +18,27 @@ public class VentanaTramites extends javax.swing.JFrame {
     DefaultTableModel modelo;
     Conexion Conect;
     String campoconsulta;
-    
     String regex;
     Pattern patron;
     int contador;
 
     public VentanaTramites() {
         initComponents();
-        contador=0;
-        this.setLocationRelativeTo(null);
-        primeraCarga();
-        accion= "Insertar"; 
-        id_actualizar="";
-        sql="";
+        contador=0;//Variable de control para que la tabla guarde contenido
+        this.setLocationRelativeTo(null);//Centra la pantalla
+        primeraCarga();//Carga la tabla con una consulta
+        accion= "Insertar"; //Guarda el tipo de acción
+        id_actualizar="";//Variable de control para actualizar info
+        sql="";//Variable especial para hacer consultas
         deshabilitar();
-        campoconsulta="";
-        listarConcepto();
-        AutoCompleteDecorator.decorate(combobox_concepto);
+        campoconsulta="";//Guarda el campo de consulta
+        listarConcepto();//Metodo que carga menú de comboBox para hacerlo predictivo
+        AutoCompleteDecorator.decorate(combobox_concepto);//Implementa Predicción en el comboBox
         listarCaja();
         AutoCompleteDecorator.decorate(combobox_caja_area);
         listarTipo();
         AutoCompleteDecorator.decorate(combobox_tipo_documento);
-        //jDesktopPane1.setBorder(new ImagenFondo());
+        jDesktopPane2.setBorder(new ImagenFondo());//Añade imagen de fondo
         
     }
     /*Generar listas para texto autocompletado*/
@@ -174,7 +173,9 @@ public class VentanaTramites extends javax.swing.JFrame {
     }
     
     
-    
+    /* 
+        Actualiza los datos cuando se inserta o se actualiza la info
+    */
     public void primeraCarga(){
         String[] titulos={"DF","folio","beneficiario","concepto","tipo_documento",};
 
@@ -797,7 +798,7 @@ public class VentanaTramites extends javax.swing.JFrame {
         }
         
     }
-    
+    /*Metodo que fue reemplazado por Método primeraCarga()  ESTE YA NO SE USA*/
         private void cargarDatos(String Id){
         try {
             Conect= new Conexion();
@@ -821,7 +822,9 @@ public class VentanaTramites extends javax.swing.JFrame {
             
         }
     }
-    
+    /*
+        Evento que se activa al tocar una fila de la tabla. Manda a cargar los datos del registro
+    */
     private void table_consultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_consultaMouseClicked
         
         habilitar();
@@ -840,7 +843,9 @@ public class VentanaTramites extends javax.swing.JFrame {
     private void button_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_cancelarActionPerformed
         deshabilitar();
     }//GEN-LAST:event_button_cancelarActionPerformed
-
+/*
+    Metodo que borra registros
+ */
     private void button_borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_borrarActionPerformed
         System.out.println("Activacion de evento");
         if(JOptionPane.YES_NO_OPTION==JOptionPane.showConfirmDialog(null,"Desea eliminar los registros "+"'","Eliminar registros",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE)){
@@ -869,6 +874,9 @@ public class VentanaTramites extends javax.swing.JFrame {
     }//GEN-LAST:event_button_agregarActionPerformed
 
     private void button_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_guardarActionPerformed
+    /*
+        SE REVISA QUE CADA COMPONENTE CUMPLA LAS REGLAS DE LAS EXPRESIONES REGULARES
+    */
     if(validacionDF(textfield_DF.getText())==false){
         JOptionPane.showMessageDialog(null,"Número DF no válido");
         return;
@@ -918,6 +926,7 @@ public class VentanaTramites extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null,"El nombre no es válido");
         return;
     } 
+    //SE MANDA A LLAMAR EL MËTODO QUE INSERTA Y MODIFICA
     insertarModificar();                  
     }//GEN-LAST:event_button_guardarActionPerformed
 
@@ -926,6 +935,9 @@ public class VentanaTramites extends javax.swing.JFrame {
     }//GEN-LAST:event_combobox_conceptoActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        /*
+            ABRE LA VENTANA AGENDA
+        */
         VentanaAgenda va=new VentanaAgenda();
         va.setVisible(true);
         this.dispose();
@@ -936,6 +948,7 @@ public class VentanaTramites extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        /*ABRE LA VENTANA LOGIN(SE CIERRA SESION)*/
         this.dispose();
         VentanaLogin vl1=new VentanaLogin();
         vl1.setVisible(true);
@@ -1011,7 +1024,7 @@ public class VentanaTramites extends javax.swing.JFrame {
         button_cancelar.setEnabled(true);
     }
     
-    //Metodo para cargar tabla de registros
+    //Metodo para cargar tabla de registros(OBSOLETO YA NO SE USA primerCarga lo ha reemplazado)
     public void cargarTabla(String valor){
         String[] titulos={"Nombre","Apellido","Departamento","Telefono_Oficina",
         "Correo"};
