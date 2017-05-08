@@ -413,7 +413,6 @@ public class VentanaTramites extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(table_consulta);
 
-        button_agregar.setBackground(new java.awt.Color(102, 102, 255));
         button_agregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/add.png"))); // NOI18N
         button_agregar.setText("Agregar");
         button_agregar.addActionListener(new java.awt.event.ActionListener() {
@@ -563,6 +562,11 @@ public class VentanaTramites extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Arial Unicode MS", 1, 14)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logout.png"))); // NOI18N
         jButton1.setText("Salir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel11.add(jButton1);
 
         jButton2.setFont(new java.awt.Font("Arial Unicode MS", 1, 14)); // NOI18N
@@ -615,9 +619,8 @@ public class VentanaTramites extends javax.swing.JFrame {
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(316, 316, 316)
                 .addComponent(jButton3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -883,6 +886,12 @@ public class VentanaTramites extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+        VentanaLogin vl1=new VentanaLogin();
+        vl1.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
     //Metodo para deshabilitar componentes de interfaz
     public void deshabilitar(){
         accion="Insertar";

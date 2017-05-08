@@ -719,6 +719,11 @@ public class VentanaAgenda extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Arial Unicode MS", 1, 14)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logout.png"))); // NOI18N
         jButton1.setText("Salir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel6.add(jButton1);
 
         jButton2.setFont(new java.awt.Font("Arial Unicode MS", 1, 14)); // NOI18N
@@ -910,6 +915,12 @@ public class VentanaAgenda extends javax.swing.JFrame {
         VentanaTramites b=new VentanaTramites();
         b.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+        VentanaLogin vl=new VentanaLogin();
+        vl.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
