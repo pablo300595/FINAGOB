@@ -6,11 +6,15 @@
 package proyecto.conexion.sql.server;
 
 import Clases1.ImagenFondo;
+import java.awt.Color;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.Icon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,9 +31,23 @@ public class VentanaCorrespondencia extends javax.swing.JFrame {
     int ultimoIndiceSeleccionado;
     String regex;
     Pattern patron;
+    Color principal;
+    Color secundario;
+    Color c1;
+    Color c2;
+    VentanaDiseñoGeneral vdg;
+    VentanaAgenda va;
+    VentanaTramites vt;
+    Icon logo;
+    int contador;
     
     public VentanaCorrespondencia() {
         initComponents();
+        this.pack();
+        vdg=null;
+        va=null;
+        contador =0;
+        
         this.setLocationRelativeTo(null);
         System.out.println("Primera carga");
         primeraCarga();
@@ -44,75 +62,53 @@ public class VentanaCorrespondencia extends javax.swing.JFrame {
         campoconsulta="";
         jDesktopPane1.setBorder(new ImagenFondo());
     }
-    
+    public void setColorPrincipal(Color color){
+        this.jPanel7.setBackground(color);
+    }
+    public void setColorSecundario(Color color){
+        this.jPanel2.setBackground(color);
+    }
+    public void setColorC1(Color color){
+        this.jPanel3.setBackground(color);
+    }public void setColorC2(Color color){
+        this.jPanel6.setBackground(color);
+    }
+    public void setLogo(Icon icon){
+       this.Logo.setIcon(icon);
+    }
     public boolean validacionImporte(String txt){
-        String[] listaTextos=txt.split(",");
-        regex = "([0-9])+";
+       regex = "[0-9]{1,30}//.[0-9]{1,30}";
         patron = Pattern.compile(regex);
-		for (String texto : listaTextos) {
-			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.find();
-			if (esCoincidente) {
-				return true;
-			}
-		}
-        return false;
+        Matcher emparejador = patron.matcher(txt);
+        boolean esCoincidente = emparejador.matches();
+        return esCoincidente;
+     
     }
     
-    public boolean validacionFecha(String txt){
-        String[] listaTextos=txt.split(",");
-        regex = "[0-9][0-9][0-9][0-9]+-+[0-9][0-9]+-+[0-9][0-9]";
-        patron = Pattern.compile(regex);
-		for (String texto : listaTextos) {
-			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.find();
-			if (esCoincidente) {
-				return true;
-			}
-		}
-        return false;
-    }
+    
     
     public boolean validacionDependencia(String txt){
-        String[] listaTextos=txt.split(",");
-        regex = "([A-Za-z])+";
+       regex = "[A-Z]([A-Z]|\u0020){1,50}";
         patron = Pattern.compile(regex);
-		for (String texto : listaTextos) {
-			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.find();
-			if (esCoincidente) {
-				return true;
-			}
-		}
-        return false;
+        Matcher emparejador = patron.matcher(txt);
+        boolean esCoincidente = emparejador.matches();
+        return esCoincidente;   
     }
     
     public boolean validacionConcepto(String txt){
-        String[] listaTextos=txt.split(",");
-        regex = "([A-Za-z])+";
+          regex = "[A-Z]([A-Z]|\u0020){1,50}";
         patron = Pattern.compile(regex);
-		for (String texto : listaTextos) {
-			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.find();
-			if (esCoincidente) {
-				return true;
-			}
-		}
-        return false;
+        Matcher emparejador = patron.matcher(txt);
+        boolean esCoincidente = emparejador.matches();
+        return esCoincidente;
     }
     
     public boolean validacionTurnado(String txt){
-        String[] listaTextos=txt.split(",");
-        regex = "([A-Za-z])+";
+        regex = "[A-Z]([A-Z]|\u0020){1,50}";
         patron = Pattern.compile(regex);
-		for (String texto : listaTextos) {
-			Matcher emparejador = patron.matcher(texto);
-			boolean esCoincidente = emparejador.find();
-			if (esCoincidente) {
-				return true;
-			}
-		}
-        return false;
+        Matcher emparejador = patron.matcher(txt);
+        boolean esCoincidente = emparejador.matches();
+        return esCoincidente;
     }
 
     
@@ -132,10 +128,9 @@ public class VentanaCorrespondencia extends javax.swing.JFrame {
         textfield_importe = new javax.swing.JTextField();
         textfield_concepto = new javax.swing.JTextField();
         textfield_turnado = new javax.swing.JTextField();
-        textfield_fecha = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         combobox_original = new javax.swing.JComboBox();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        textfield_fecha_recibido = new com.toedter.calendar.JDateChooser();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_consulta = new javax.swing.JTable();
@@ -154,6 +149,7 @@ public class VentanaCorrespondencia extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
+        Logo = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -206,7 +202,7 @@ public class VentanaCorrespondencia extends javax.swing.JFrame {
                     .addComponent(textfield_importe, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textfield_concepto, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
@@ -214,14 +210,12 @@ public class VentanaCorrespondencia extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(textfield_fecha_recibido, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textfield_turnado, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(86, 86, 86)
-                        .addComponent(textfield_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(textfield_turnado, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(284, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,15 +241,12 @@ public class VentanaCorrespondencia extends javax.swing.JFrame {
                             .addComponent(jLabel6)
                             .addComponent(textfield_turnado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel5)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel7)
-                                .addComponent(combobox_original, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(textfield_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(combobox_original, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(textfield_fecha_recibido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 102, 102));
@@ -332,17 +323,17 @@ public class VentanaCorrespondencia extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(button_agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(button_borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(button_guardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(button_guardar)
                             .addComponent(button_cancelar)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(65, 65, 65))
+                .addGap(62, 62, 62))
         );
 
         jPanel6.setBackground(new java.awt.Color(255, 51, 51));
@@ -450,7 +441,9 @@ public class VentanaCorrespondencia extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel14)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(Logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -458,6 +451,7 @@ public class VentanaCorrespondencia extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel14)
                 .addContainerGap(21, Short.MAX_VALUE))
+            .addComponent(Logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel8.setBackground(new java.awt.Color(204, 204, 204));
@@ -507,7 +501,7 @@ public class VentanaCorrespondencia extends javax.swing.JFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1213, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -526,7 +520,7 @@ public class VentanaCorrespondencia extends javax.swing.JFrame {
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -562,7 +556,14 @@ public class VentanaCorrespondencia extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,ex);
         }
     }
-    
+    private String getFecha(){
+       String a,m,d,fecha;
+       
+       a=""+textfield_fecha_recibido.getCalendar().get(Calendar.YEAR);
+       m=""+textfield_fecha_recibido.getCalendar().get(Calendar.MONTH);
+       d=""+textfield_fecha_recibido.getCalendar().get(Calendar.DAY_OF_MONTH); 
+       return fecha=d+"/"+m+"/"+a;
+    }
     private void insertarModificar(){
         System.out.println("Empieza metodo modificar..."); 
         String nof,dep,imp,con,ori,tur,fec;
@@ -572,7 +573,7 @@ public class VentanaCorrespondencia extends javax.swing.JFrame {
         con = textfield_concepto.getText();
         ori = combobox_original.getSelectedItem().toString();
         tur = textfield_turnado.getText();
-        fec = textfield_fecha.getText();
+        fec = getFecha();
         
         System.out.println("Previo a catch..."); 
         try {
@@ -635,7 +636,7 @@ public class VentanaCorrespondencia extends javax.swing.JFrame {
                 textfield_concepto.setText(consulta.getString("Concepto"));
                 combobox_original.setSelectedIndex(ultimoIndiceSeleccionado);
                 textfield_turnado.setText(consulta.getString("Turnado_A"));
-                textfield_fecha.setText(consulta.getString("Fecha_De_Recibido"));
+                textfield_fecha_recibido.setDate(Date.valueOf(consulta.getString("Fecha_De_Recibido")));
             }
             
         } catch (SQLException ex) {
@@ -655,7 +656,7 @@ public class VentanaCorrespondencia extends javax.swing.JFrame {
 
         Id=(String)modelo.getValueAt(filas,0);
         System.out.println("Valor ID= "+Id);
-        //textfield_observaciones.setEnabled(false);
+        
         id_actualizar =Id;
         cargarDatos(Id);
     }//GEN-LAST:event_table_consultaMouseClicked
@@ -671,7 +672,7 @@ public class VentanaCorrespondencia extends javax.swing.JFrame {
         textfield_concepto.setEnabled(false);
         combobox_original.setEnabled(false);
         textfield_turnado.setEnabled(false);
-        textfield_fecha.setEnabled(false);
+        textfield_fecha_recibido.setEnabled(false);
         
         textfield_oficio.setText("");
         textfield_dependencia.setText("");
@@ -679,7 +680,7 @@ public class VentanaCorrespondencia extends javax.swing.JFrame {
         textfield_concepto.setText("");
         combobox_original.setSelectedIndex(0);
         textfield_turnado.setText("");
-        textfield_fecha.setText("");
+        
         textfield_oficio.requestFocus();
         
         button_guardar.setEnabled(false);
@@ -699,7 +700,7 @@ public class VentanaCorrespondencia extends javax.swing.JFrame {
         textfield_concepto.setEnabled(true);
         combobox_original.setEnabled(true);
         textfield_turnado.setEnabled(true);
-        textfield_fecha.setEnabled(true);
+       textfield_fecha_recibido.setEnabled(true);
         
         textfield_oficio.setText("");
         textfield_dependencia.setText("");
@@ -707,7 +708,7 @@ public class VentanaCorrespondencia extends javax.swing.JFrame {
         textfield_concepto.setText("");
         combobox_original.setSelectedIndex(0);
         textfield_turnado.setText("");
-        textfield_fecha.setText("");
+        
         textfield_oficio.requestFocus();
         
         button_guardar.setEnabled(true);
@@ -800,14 +801,12 @@ public class VentanaCorrespondencia extends javax.swing.JFrame {
     }//GEN-LAST:event_button_cancelarActionPerformed
 
     private void button_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_guardarActionPerformed
-       if(validacionImporte(textfield_importe.getText())==false){
+      
+        if(validacionImporte(textfield_importe.getText())==false){
         JOptionPane.showMessageDialog(null,"El importe no es valido");
         return;
         }
-        if(validacionFecha(textfield_fecha.getText())==false){
-        JOptionPane.showMessageDialog(null,"La fecha no es valida");
-        return;
-        }
+        
         if(validacionDependencia(textfield_dependencia.getText())==false){
         JOptionPane.showMessageDialog(null,"La dependencia no es valida");
         return;
@@ -860,6 +859,7 @@ public class VentanaCorrespondencia extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Logo;
     private javax.swing.JButton button_agregar;
     private javax.swing.JButton button_borrar;
     private javax.swing.JButton button_cancelar;
@@ -870,7 +870,6 @@ public class VentanaCorrespondencia extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
@@ -895,7 +894,7 @@ public class VentanaCorrespondencia extends javax.swing.JFrame {
     private javax.swing.JTextField textfield_buscar;
     private javax.swing.JTextField textfield_concepto;
     private javax.swing.JTextField textfield_dependencia;
-    private javax.swing.JTextField textfield_fecha;
+    private com.toedter.calendar.JDateChooser textfield_fecha_recibido;
     private javax.swing.JTextField textfield_importe;
     private javax.swing.JTextField textfield_oficio;
     private javax.swing.JTextField textfield_turnado;
