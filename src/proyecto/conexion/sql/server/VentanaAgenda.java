@@ -678,7 +678,7 @@ public class VentanaAgenda extends javax.swing.JFrame {
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 671, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -689,9 +689,7 @@ public class VentanaAgenda extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         jPanel6.setBackground(new java.awt.Color(204, 204, 204));
@@ -711,6 +709,11 @@ public class VentanaAgenda extends javax.swing.JFrame {
         jButton5.setFont(new java.awt.Font("Arial Unicode MS", 1, 14)); // NOI18N
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/1479878567_23.png"))); // NOI18N
         jButton5.setText("Trámites");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         jPanel6.add(jButton5);
 
         jButton1.setFont(new java.awt.Font("Arial Unicode MS", 1, 14)); // NOI18N
@@ -901,6 +904,12 @@ public class VentanaAgenda extends javax.swing.JFrame {
     private void textfield_telefono_celularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfield_telefono_celularActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textfield_telefono_celularActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        this.dispose();
+        VentanaTramites b=new VentanaTramites();
+        b.setVisible(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
