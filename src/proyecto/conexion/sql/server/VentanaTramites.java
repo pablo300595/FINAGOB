@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.Icon;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 public class VentanaTramites extends javax.swing.JFrame {
@@ -24,11 +25,16 @@ public class VentanaTramites extends javax.swing.JFrame {
     int contador;
     
     Color principal;
+    Color secundario;
+    Color c1;
+    Color c2;
     VentanaDiseñoGeneral vdg;
     VentanaAgenda va;
+    Icon logo;
 
     public VentanaTramites() {
         initComponents();
+        this.pack();
         vdg=null;
         va=null;
         contador=0;//Variable de control para que la tabla guarde contenido
@@ -51,6 +57,20 @@ public class VentanaTramites extends javax.swing.JFrame {
     
     public void setColorPrincipal(Color color){
         this.jPanel5.setBackground(color);
+    }
+    public void setColorSecundario(Color color){
+        this.jPanel2.setBackground(color);
+    }
+    
+    public void setColorC1(Color color){
+        this.jPanel3.setBackground(color);
+    }
+    
+    public void setColorC2(Color color){
+        this.jPanel8.setBackground(color);
+    }
+    public void setLogo(Icon icon){
+        this.Logo.setIcon(icon);
     }
     
     
@@ -256,6 +276,7 @@ public class VentanaTramites extends javax.swing.JFrame {
         button_guardar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
+        Logo = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jDesktopPane2 = new javax.swing.JDesktopPane();
@@ -399,7 +420,7 @@ public class VentanaTramites extends javax.swing.JFrame {
                                 .addGap(42, 42, 42)
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(combobox_concepto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(combobox_concepto, 0, 267, Short.MAX_VALUE))))
                     .addComponent(jLabel4)
                     .addComponent(jLabel19)
                     .addComponent(jLabel11))
@@ -559,16 +580,18 @@ public class VentanaTramites extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(255, 102, 51));
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel5.setMaximumSize(new java.awt.Dimension(1206, 140));
+        jPanel5.setPreferredSize(new java.awt.Dimension(1206, 140));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1202, Short.MAX_VALUE)
+            .addComponent(Logo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 136, Short.MAX_VALUE)
+            .addComponent(Logo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
         );
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
@@ -1116,6 +1139,7 @@ public class VentanaTramites extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Logo;
     private javax.swing.JButton button_agregar;
     private javax.swing.JButton button_borrar;
     private javax.swing.JButton button_cancelar;
