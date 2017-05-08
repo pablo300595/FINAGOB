@@ -1,9 +1,11 @@
 package proyecto.conexion.sql.server;
 
 import Clases1.ImagenFondo;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.util.regex.Matcher;
@@ -38,7 +40,7 @@ public class VentanaTramites extends javax.swing.JFrame {
         Se realizan evaluaciones con expresiones regulares.
     */
     public boolean validacionDF(String txt){
-        regex = "(([0-9]{4})/([0-9]{2}))|(S/N)";
+        regex = "(([0-9]{4})/([0-9]{2}))|(S\u002FN)";
         patron = Pattern.compile(regex);
         Matcher emparejador = patron.matcher(txt);
         boolean esCoincidente = emparejador.matches();
@@ -94,13 +96,13 @@ public class VentanaTramites extends javax.swing.JFrame {
         return esCoincidente;
     }
     
-    public boolean validacionAreaFecha(String txt){
+    /*public boolean validacionAreaFecha(String txt){
         regex = "([0-9]{4}-[0-9]{2}-[0-9]{2})";
         patron = Pattern.compile(regex);
         Matcher emparejador = patron.matcher(txt);
         boolean esCoincidente = emparejador.matches();
         return esCoincidente;
-    }
+    }*/
     
     public boolean validacionAreaCaja(String txt){
         regex = "(CAJA 1|CAJA 2|CAJA 3| CAJA 4)";
@@ -111,22 +113,22 @@ public class VentanaTramites extends javax.swing.JFrame {
     }
     
     public boolean validacionAreaRecibido(String txt){
-        regex = "([0-9]{1,15}\u0025[0-9]{1-15})|([0-9]{1,15})";
+        regex = "([A-Z]{1,15}\u0025[A-Z]{1,15})|([A-Z]{1,15})";
         patron = Pattern.compile(regex);
         Matcher emparejador = patron.matcher(txt);
         boolean esCoincidente = emparejador.matches();
         return esCoincidente;
     }
     
-    public boolean validacionTesoreriaFecha(String txt){
-        regex = "([0-9]{4}-[0-9]{2}-[0-9]{2})";
+    /*public boolean validacionTesoreriaFecha(String txt){
+        regex = "([0-9]{4}\u002D[0-9]{2}\u002D[0-9]{2})";
         patron = Pattern.compile(regex);
         Matcher emparejador = patron.matcher(txt);
         boolean esCoincidente = emparejador.matches();
         return esCoincidente;
-    }
+    }*/
     public boolean validacionTesoreriaNombre(String txt){
-        regex = "([0-9]{1,15}\u0025[0-9]{1-15})|([0-9]{1,15})";
+        regex = "([A-Z]{1,15}\u0025[A-Z]{1,15})|([A-Z]{1,15})";
         patron = Pattern.compile(regex);
         Matcher emparejador = patron.matcher(txt);
         boolean esCoincidente = emparejador.matches();
@@ -190,9 +192,9 @@ public class VentanaTramites extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        textfield_fecha_area = new com.toedter.calendar.JDateChooser();
         textfield_fecha_tesoreria = new com.toedter.calendar.JDateChooser();
         textfield_concepto = new javax.swing.JComboBox();
+        textfield_fecha_area = new com.toedter.calendar.JDateChooser();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_consulta = new javax.swing.JTable();
@@ -265,9 +267,7 @@ public class VentanaTramites extends javax.swing.JFrame {
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel19.setText("Tesorería Recibido");
 
-        textfield_fecha_area.setDateFormatString("yyyy-MM-d");
-
-        textfield_fecha_tesoreria.setDateFormatString("yyyy-MM-d");
+        textfield_fecha_tesoreria.setDateFormatString("yyyy-MM-dd");
 
         textfield_concepto.setEditable(true);
         textfield_concepto.addActionListener(new java.awt.event.ActionListener() {
@@ -275,6 +275,8 @@ public class VentanaTramites extends javax.swing.JFrame {
                 textfield_conceptoActionPerformed(evt);
             }
         });
+
+        textfield_fecha_area.setDateFormatString("yyyy-MM-dd");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -300,10 +302,10 @@ public class VentanaTramites extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel5))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(textfield_tipo_documento)
-                                    .addComponent(textfield_fecha_area, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                                    .addComponent(textfield_fecha_tesoreria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(textfield_tipo_documento, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(textfield_fecha_tesoreria, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                                    .addComponent(textfield_fecha_area, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel10)
@@ -366,24 +368,25 @@ public class VentanaTramites extends javax.swing.JFrame {
                 .addGap(7, 7, 7)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel6)
-                        .addComponent(jLabel8)
-                        .addComponent(textfield_caja_area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel16)
-                        .addComponent(textfield_recibido_area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(textfield_fecha_area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel19)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel17)
-                            .addComponent(textfield_nombre_tesoreria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel18)))
-                    .addComponent(textfield_fecha_tesoreria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel8)
+                            .addComponent(textfield_caja_area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16)
+                            .addComponent(textfield_recibido_area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel19)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel17)
+                                    .addComponent(textfield_nombre_tesoreria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel18)))
+                            .addComponent(textfield_fecha_tesoreria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(textfield_fecha_area, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
 
@@ -698,7 +701,8 @@ public class VentanaTramites extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     //Metodo que inserta y modifica los datos
     private void insertarModificar(){
-        String df,folio,ben,con,tipo_doc,tipo_no,tipo_imp,area_fec,area_caja,area_recib,tesoreria_fec,tesoreria_nom;
+        String df,folio,ben,con,tipo_doc,tipo_no,tipo_imp,area_fec,area_fecY,area_fecM,area_fecD,area_caja,
+                area_recib,tesoreria_fecY,tesoreria_fecM,tesoreria_fecD,tesoreria_fec,tesoreria_nom;
         int id_contacto;
         df = textfield_DF.getText();
         folio = textfield_folio.getText();
@@ -708,10 +712,19 @@ public class VentanaTramites extends javax.swing.JFrame {
         tipo_doc=textfield_tipo_documento.getText();
         tipo_no=textfield_no_documento.getText();
         tipo_imp=textfield_importe_documento.getText();
-        area_fec=textfield_fecha_area.getDateFormatString();
+        
         area_caja=textfield_caja_area.getText();
         area_recib=textfield_recibido_area.getText();
-        tesoreria_fec=textfield_fecha_tesoreria.getDateFormatString();
+        tesoreria_fecY=textfield_fecha_tesoreria.getCalendar().get(Calendar.YEAR)+"";
+        tesoreria_fecM=textfield_fecha_tesoreria.getCalendar().get(Calendar.MONTH)+"";
+        tesoreria_fecD=textfield_fecha_tesoreria.getCalendar().get(Calendar.DAY_OF_MONTH)+"";
+        tesoreria_fec=tesoreria_fecY+"-"+tesoreria_fecM+"-"+tesoreria_fecD;
+        
+        area_fecY=textfield_fecha_area.getCalendar().get(Calendar.YEAR)+"";
+        area_fecM=textfield_fecha_area.getCalendar().get(Calendar.MONTH)+"";
+        area_fecD=textfield_fecha_area.getCalendar().get(Calendar.DAY_OF_MONTH)+"";
+        area_fec=area_fecY+"-"+area_fecM+"-"+area_fecD;
+        System.out.println(tesoreria_fec);
         tesoreria_nom=textfield_nombre_tesoreria.getText();
         id_contacto=contador;
         
@@ -721,14 +734,14 @@ public class VentanaTramites extends javax.swing.JFrame {
             if(accion.equals("Insertar")){
                 sql= "INSERT INTO tramite(D_F,folio,beneficiario,concepto,tipo_documento,no_documento,importe_documento,fecha_area,caja_area,recibido_area,fecha_tesoreria,nombre_tesoreria)"+" VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
                 mensaje="Los datos se han insertado";
-                deshabilitar();
+                
             }
             
             if((accion.equals("Modificar"))){
                 System.out.println("Estoy actualizando...");
-                sql= "UPDATE Contacto SET D_F = ?, folio= ?,beneficiario= ?,concepto= ?,tipo_documento= ?, no_documento= ?,importe_documento= ?,fecha_area= ?,caja_area = ?,recibido_area= ?,fecha_tesoreria=?,nombre_tesoreria=? WHERE folio = "+"'"+id_actualizar+"'";
+                sql= "UPDATE tramite SET D_F = ?, folio= ?,beneficiario= ?,concepto= ?,tipo_documento= ?, no_documento= ?,importe_documento= ?,fecha_area= ?,caja_area = ?,recibido_area= ?,fecha_tesoreria=?,nombre_tesoreria=? WHERE folio = "+"'"+id_actualizar+"'";
                 mensaje="Los datos se han actualizado";
-                deshabilitar();
+         
             }
             PreparedStatement pst=Conect.conexion.prepareStatement(sql);
             pst.setString(1, df);
@@ -765,17 +778,18 @@ public class VentanaTramites extends javax.swing.JFrame {
             //Recorre registros para mostrarlos
             while(consulta.next()){
                 textfield_DF.setText(consulta.getString("D_F"));
-
                 textfield_folio.setText(consulta.getString("folio"));
-                
                 textfield_beneficiario.setText(consulta.getString("beneficiario"));
-                textfield_fecha_area.setDateFormatString(consulta.getString("fecha_area"));
                 textfield_concepto.getEditor().setItem(consulta.getString("concepto"));
-                textfield_caja_area.setText(consulta.getString("caja_area"));
                 textfield_tipo_documento.setText(consulta.getString("tipo_documento"));
-                        
-            }
-            
+                textfield_no_documento.setText(consulta.getString("no_documento"));
+                textfield_importe_documento.setText(consulta.getString("importe_documento"));
+                textfield_fecha_area.setDate(Date.valueOf(consulta.getString("fecha_area")));
+                textfield_caja_area.setText(consulta.getString("caja_area"));
+                textfield_recibido_area.setText(consulta.getString("recibido_area"));
+                textfield_fecha_tesoreria.setDate(Date.valueOf(consulta.getString("fecha_tesoreria")));
+                textfield_nombre_tesoreria.setText(consulta.getString("nombre_tesoreria"));           
+            }     
         } catch (SQLException ex) {
             
         }
@@ -804,15 +818,15 @@ public class VentanaTramites extends javax.swing.JFrame {
         System.out.println("Activacion de evento");
         if(JOptionPane.YES_NO_OPTION==JOptionPane.showConfirmDialog(null,"Desea eliminar los registros "+"'","Eliminar registros",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE)){
             System.out.println("Previo a mensaje y deshabilitacion");
-            String Nombre=textfield_DF.getText();
+            String Nombre=textfield_folio.getText();
             mensaje="Los datos se han eliminado";
             deshabilitar();
             try {
                 Conect = new Conexion();
-                //PreparedStatement pst=Conect.Eliminar("Contacto", "Nombre", Nombre);
+                //PreparedStatement pst=Conect.Eliminar("tramite", "folio", Nombre);
                 Conect.Eliminar("tramite", "folio", Nombre);
                 JOptionPane.showMessageDialog(null, mensaje);
-                //cargarTabla("");
+                
                 primeraCarga();
                 JOptionPane.showMessageDialog(null, "se cargó tabla correctamente");
             } catch (SQLException ex) {
@@ -857,10 +871,10 @@ public class VentanaTramites extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null,"El importe no es válido");
         return;
     }
-    if(validacionAreaFecha(textfield_fecha_area.getDateFormatString())==false){
+    /*if(validacionAreaFecha(textfield_fecha_area.getDateFormatString())==false){
         JOptionPane.showMessageDialog(null,"La fecha de área no es válida");
         return;
-    }
+    }*/
     if(validacionAreaCaja(textfield_caja_area.getText())==false){
         JOptionPane.showMessageDialog(null,"La caja no es válida");
         return;
@@ -869,10 +883,10 @@ public class VentanaTramites extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null,"El nombre de recibido no es válido");
         return;
     }
-    if(validacionTesoreriaFecha(textfield_fecha_tesoreria.getDateFormatString())==false){
+    /*if(validacionTesoreriaFecha(textfield_fecha_tesoreria.getDateFormatString())==false){
         JOptionPane.showMessageDialog(null,"La fecha no es válida");
         return;
-    }
+    }*/
     if(validacionTesoreriaNombre(textfield_nombre_tesoreria.getText())==false){
         JOptionPane.showMessageDialog(null,"El nombre no es válido");
         return;
@@ -908,11 +922,9 @@ public class VentanaTramites extends javax.swing.JFrame {
         textfield_tipo_documento.setText("");
         textfield_caja_area.setText("");
         textfield_no_documento.setText("");
-        textfield_importe_documento.setText("");
-        textfield_fecha_area.setDateFormatString("");
+        textfield_importe_documento.setText("");       
         textfield_caja_area.setText("");
         textfield_recibido_area.setText("");
-        textfield_fecha_tesoreria.setDateFormatString("");
         textfield_nombre_tesoreria.setText("");
         textfield_DF.requestFocus();
         button_guardar.setEnabled(false);
@@ -923,6 +935,7 @@ public class VentanaTramites extends javax.swing.JFrame {
     //Método para habilitar componentes de interfaz
     public void habilitar(){
         accion="Insertar";
+        
         textfield_DF.setEnabled(true);
         textfield_folio.setEnabled(true);
         textfield_beneficiario.setEnabled(true);
@@ -946,10 +959,8 @@ public class VentanaTramites extends javax.swing.JFrame {
         textfield_caja_area.setText("");
         textfield_no_documento.setText("");
         textfield_importe_documento.setText("");
-        textfield_fecha_area.setDateFormatString("");
         textfield_caja_area.setText("");
         textfield_recibido_area.setText("");
-        textfield_fecha_tesoreria.setDateFormatString("");
         textfield_nombre_tesoreria.setText("");
         textfield_DF.requestFocus();
         button_guardar.setEnabled(true);
