@@ -22,6 +22,9 @@ public class VentanaAgenda extends javax.swing.JFrame {
     Pattern patron;
     
     Color principal;
+    Color secundario;
+    Color c1;
+    Color c2;
     VentanaDiseñoGeneral vdg;
     VentanaTramites vt;
 
@@ -48,6 +51,18 @@ public class VentanaAgenda extends javax.swing.JFrame {
     
     public void setColorPrincipal(Color color){
         this.jPanel5.setBackground(color);
+    }
+    
+    public void setColorSecundario(Color color){
+        this.jPanel2.setBackground(color);
+    }
+    
+    public void setColorC1(Color color){
+        this.jPanel3.setBackground(color);
+    }
+    
+    public void setColorC2(Color color){
+        this.jPanel4.setBackground(color);
     }
     /*
         Elementos existentes en combobox
