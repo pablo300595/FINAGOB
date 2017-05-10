@@ -207,14 +207,14 @@ public class Usuarios extends javax.swing.JFrame {
             System.out.println("Previo a conexion..."); 
             Conect = new Conexion(); 
             if(accion.equals("Insertar")){
-                sql= "INSERT INTO Usuarios( Nombre,Apellido,Telefono,NombreUsuario,Contraseña,TipoUsuario)"+" VALUES(?,?,?,?,?,?)";
+                sql= "INSERT INTO Usuarios"+" VALUES(?,?,?,?,?,?)";
                 mensaje="Los datos se han insertado";
                 deshabilitar();
             }
             
             if((accion.equals("Modificar"))){
                 System.out.println("Estoy actualizando...");
-                sql= "UPDATE Contacto SET Nombre = ?, Apellido = ?,Telefono = ?,NombreUsuario = ?,Contraseña = ?,TipoUsuario = ? WHERE Nombre = "+"'"+id_actualizar+"'";
+                sql= "UPDATE Usuarios SET Nombre = ?, Apellido = ?,Telefono = ?,NombreUsuario = ?,Contraseña = ?,TipoUsuario = ? WHERE Nombre = "+"'"+id_actualizar+"'";
                 mensaje="Los datos se han actualizado";
                 deshabilitar();
             }
@@ -709,22 +709,21 @@ public class Usuarios extends javax.swing.JFrame {
         String contra1,contra2;
         contra1 = txtContraseña1.getText();
         contra2 = txtContraseña2.getText();
-        if(contra1 == contra2){
+        if(contra1.equals(contra2)){
             if(validacionContraseña(txtContraseña1.getText()) ==false) {
-            JOptionPane.showMessageDialog(null,"La contraseña no es vaida");
+            JOptionPane.showMessageDialog(null,"La contraseña no es válida");
             return;
         }
-        } 
-        if(contra1 != contra2){
+            else insertarModificar();
+        } else {
             JOptionPane.showMessageDialog(null,"Las contraseñas no coinciden");
+            System.out.println(contra1);
+            System.out.println(contra2);
             txtContraseña1.setText("");
             txtContraseña2.setText("");
+            System.out.println("No iguales");
             return;
         }
-        
-        
-  
-        insertarModificar();
     }//GEN-LAST:event_button_guardarActionPerformed
 
     private void button_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_cancelarActionPerformed
