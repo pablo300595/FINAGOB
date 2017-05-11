@@ -27,9 +27,8 @@ public class VentanaLogin extends javax.swing.JFrame {
     }
     
     private void primeraCarga(){
-         String[] titulos={"NombreUsuario","Contraseña","TipoUsuario"};
-        usuarios = table_consulta.getRowCount()-1;
-        String[] registros= new String[3];
+         String[] titulos={"NombreUsuario","Contraseña","TipoUsuario","Estado"};
+        String[] registros= new String[4];
         modelo = new DefaultTableModel(null,titulos);
         try {
             //Mostrar registros en la tabla
@@ -39,32 +38,12 @@ public class VentanaLogin extends javax.swing.JFrame {
                 registros[0] = consulta.getString("NombreUsuario");
                 registros[1] = consulta.getString("Contraseña");
                 registros[2] = consulta.getString("TipoUsuario");
+                registros[3] = consulta.getString("Estado");
                 modelo.addRow(registros); 
             }
             //Mostrar titulos de la tabla
             table_consulta.setModel(modelo);
-            
-        } catch (SQLException ex) {    
-            JOptionPane.showMessageDialog(null,ex);
-        }
-    }
-    
-    public void cargarTabla(String valor){
-        String[] titulos={"Nombre de Usuario","Contraseña","Tipo de Usuario"};
-        String[] registros= new String[3];
-        modelo = new DefaultTableModel(null,titulos);
-        try {
-            //Mostrar registros en la tabla
-            Conect = new Conexion();
-            ResultSet consulta= Conect.Consultar1("Usuarios",campoconsulta ,valor);
-            while(consulta.next()){
-                registros[0] = consulta.getString("NombreUsuario");
-                registros[1] = consulta.getString("Contraseña");
-                registros[2] = consulta.getString("TipoUsuario");
-                modelo.addRow(registros); 
-            }
-            //Mostrar titulos de la tabla
-            table_consulta.setModel(modelo);
+            usuarios = table_consulta.getRowCount()-1;
             
         } catch (SQLException ex) {    
             JOptionPane.showMessageDialog(null,ex);
@@ -115,8 +94,8 @@ public class VentanaLogin extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel4.setText("CONTRASEÑA:");
 
-        txtUser.setText(" ");
-        txtUser.setToolTipText("RosaMaria1");
+        txtUser.setToolTipText("");
+        txtUser.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         jButton1.setBackground(new java.awt.Color(255, 51, 51));
         jButton1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -411,35 +390,34 @@ public class VentanaLogin extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String user = txtUser.getText();
         String pass = txtPass.getText();
+        String Estado;
         if(user.equals("") || pass.equals("")){
             showMessageDialog(null,"El Nombre de Usuario o Contraseña son INCORRECTOS");
             txtPass.setText("");
-            System.out.println(table_consulta.getValueAt(0,NORMAL));
-            System.out.println(table_consulta.getValueAt(0,1));
+            txtUser.setText("");
         }
-
-        campoconsulta="NombreUsuario";
         if(usuarios<1){
             showMessageDialog(null,"No hay Usuarios");
             txtPass.setText("");
             txtUser.setText("");
-        }else if(usuarios > 0){
+        }else{
             for(int i=0;i<=usuarios;i++){
                 usuario = table_consulta.getValueAt(i,0).toString();
                 contraseña = table_consulta.getValueAt(i,1).toString();
-                if(user.equals(usuario) && pass.equals(contraseña)){
-                    System.out.println("Entra al if");
+                Estado = table_consulta.getValueAt(i, 3).toString();
+                if(user.equals(usuario) && pass.equals(contraseña) && Estado.equals("1")){
                     VentanaAgenda va = new VentanaAgenda();
-                    VentanaLogin vl = new VentanaLogin();
-                    System.out.println("llega hasta aqui");
                     txtPass.setText("");
                     txtUser.setText("");
-                    vl.setVisible(false);
+                    this.setVisible(false);
                     va.setVisible(true);
                     break;
                 }
-            }
+            } 
+        }if(!user.equals(usuario) || !pass.equals(contraseña)){
             showMessageDialog(null,"EL Nombre de Usuario o Contraseña son INCORRECTOS");
+            txtUser.setText("");
+            txtPass.setText("");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
